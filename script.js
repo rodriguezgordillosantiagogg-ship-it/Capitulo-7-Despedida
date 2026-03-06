@@ -20,15 +20,14 @@ pantalla.addEventListener('click', () => {
     pantalla.style.display = 'none';
     contenido.style.display = 'flex';
     
-    // Reproducir música
-    audio.play().catch(e => console.log("Audio esperando..."));
-    
-    // Reproducir video y quitar silencio
+    // En móviles, primero damos Play y luego quitamos el Muted
     video.play().then(() => {
-        video.muted = false; 
-    }).catch(error => {
-        console.log("Cargando video...");
+        video.muted = false;
+    }).catch(() => {
+        // Si el móvil es muy estricto, lo deja en silencio pero corriendo
+        video.play();
     });
 
+    audio.play().catch(e => console.log("Audio esperando toque"));
     setInterval(crearPetalo, 300);
 });
