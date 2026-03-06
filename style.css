@@ -13,6 +13,7 @@ body, html {
     font-family: 'Times New Roman', serif;
 }
 
+/* Pétalos (se mantienen igual) */
 .petalo {
     position: absolute;
     background-color: #ffb7c5;
@@ -28,6 +29,7 @@ body, html {
     100% { transform: translateY(110vh) rotate(360deg) translateX(80px); }
 }
 
+/* Pantalla de Inicio (se mantiene igual) */
 .pantalla-inicio {
     position: fixed;
     top: 0; left: 0;
@@ -42,12 +44,13 @@ body, html {
 }
 
 .texto-entrada { text-align: center; color: white; }
-.titulo-entrada { font-size: clamp(2rem, 8vw, 5rem); letter-spacing: 10px; margin: 0; }
-.subtitulo-entrada { color: #ffb7c5; letter-spacing: 6px; margin-top: 10px; }
+.titulo-entrada { font-size: clamp(2rem, 8vw, 5rem); letter-spacing: 10px; margin: 0; font-weight: 100; }
+.subtitulo-entrada { color: #ffb7c5; letter-spacing: 6px; margin-top: 10px; font-size: 1rem; }
 .instruccion { display: block; margin-top: 40px; font-size: 0.8rem; opacity: 0.5; animation: palpitar 2s infinite; }
 
 @keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
+/* Contenido Principal */
 .contenido {
     display: none;
     flex-direction: column;
@@ -59,7 +62,7 @@ body, html {
 }
 
 #miVideo {
-    height: 65vh; 
+    height: 60vh; /* Reducimos un poco el video para dar espacio al texto doble */
     width: auto;
     max-width: 85vw;
     border-radius: 15px;
@@ -68,8 +71,30 @@ body, html {
     background-color: black;
 }
 
-.footer-texto { color: white; text-align: center; margin-top: 20px; }
-.footer-texto h1 { letter-spacing: 10px; font-weight: 100; font-size: 1.1rem; }
+/* --- NUEVOS ESTILOS PARA EL TEXTO DOBLE BAJO EL VIDEO --- */
+.footer-texto-doble {
+    text-align: center;
+    margin-top: 15px; /* Espacio entre video y texto */
+    font-family: 'Times New Roman', serif;
+}
+
+.footer-titulo {
+    color: white; /* Color Blanco igual que la entrada */
+    font-size: 1.5rem; /* Tamaño intermedio */
+    letter-spacing: 8px;
+    font-weight: 100;
+    margin: 0;
+}
+
+.footer-subtitulo {
+    color: #ffb7c5; /* Color Rosa exacto de la entrada */
+    font-size: 0.9rem; /* Más pequeño */
+    letter-spacing: 5px;
+    margin: 5px 0 0 0;
+    text-transform: uppercase;
+}
+
+/* Efecto respirar (se mantiene igual, aplicado al bloque entero) */
 .efecto-respirar { animation: respirar 3s ease-in-out infinite; }
 
 @keyframes respirar {
