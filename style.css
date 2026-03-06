@@ -1,103 +1,52 @@
 * { box-sizing: border-box; }
-
 body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+    margin: 0; padding: 0; width: 100%; height: 100%;
     background-color: #0d001a !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    font-family: 'Times New Roman', serif;
+    display: flex; justify-content: center; align-items: center;
+    overflow: hidden; font-family: 'Times New Roman', serif;
 }
-
-/* Pétalos (se mantienen igual) */
 .petalo {
-    position: absolute;
-    background-color: #ffb7c5;
-    border-radius: 150% 0 150% 0;
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 5;
-    animation: caer linear infinite;
+    position: absolute; background-color: #ffb7c5;
+    border-radius: 150% 0 150% 0; opacity: 0.6;
+    pointer-events: none; z-index: 5; animation: caer linear infinite;
 }
-
 @keyframes caer {
     0% { transform: translateY(-10vh) rotate(0deg); }
     100% { transform: translateY(110vh) rotate(360deg) translateX(80px); }
 }
-
-/* Pantalla de Inicio (se mantiene igual) */
 .pantalla-inicio {
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 100;
+    position: fixed; top: 0; left: 0; z-index: 100;
     background: radial-gradient(circle, #1a0033 0%, #0d001a 100%);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    width: 100%; height: 100%; display: flex;
+    justify-content: center; align-items: center; cursor: pointer;
 }
-
 .texto-entrada { text-align: center; color: white; }
 .titulo-entrada { font-size: clamp(2rem, 8vw, 5rem); letter-spacing: 10px; margin: 0; font-weight: 100; }
 .subtitulo-entrada { color: #ffb7c5; letter-spacing: 6px; margin-top: 10px; font-size: 1rem; }
 .instruccion { display: block; margin-top: 40px; font-size: 0.8rem; opacity: 0.5; animation: palpitar 2s infinite; }
-
 @keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
-/* Contenido Principal */
 .contenido {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
+    display: none; flex-direction: column;
+    align-items: center; justify-content: center;
+    width: 100%; height: 100%; z-index: 10;
 }
-
 #miVideo {
-    height: 60vh; /* Reducimos un poco el video para dar espacio al texto doble */
-    width: auto;
-    max-width: 85vw;
-    border-radius: 15px;
-    box-shadow: 0 0 40px rgba(138, 43, 226, 0.5); 
-    border: 1px solid rgba(255, 183, 197, 0.2);
-    background-color: black;
+    height: 60vh; width: auto; max-width: 85vw;
+    border-radius: 15px; box-shadow: 0 0 40px rgba(138, 43, 226, 0.5); 
+    border: 1px solid rgba(255, 183, 197, 0.2); background-color: black;
 }
-
-/* --- NUEVOS ESTILOS PARA EL TEXTO DOBLE BAJO EL VIDEO --- */
 .footer-texto-doble {
-    text-align: center;
-    margin-top: 15px; /* Espacio entre video y texto */
+    text-align: center; margin-top: 20px;
     font-family: 'Times New Roman', serif;
+    text-shadow: 0 0 15px rgba(255, 183, 197, 0.4);
+    transition: all 3s ease; /* Para que el movimiento al centro sea suave */
 }
+.footer-titulo { color: white; font-size: 1.6rem; letter-spacing: 8px; font-weight: 100; margin: 0; }
+.footer-subtitulo { color: #ffb7c5; font-size: 0.9rem; letter-spacing: 5px; margin: 5px 0 0 0; text-transform: uppercase; }
 
-.footer-titulo {
-    color: white; /* Color Blanco igual que la entrada */
-    font-size: 1.5rem; /* Tamaño intermedio */
-    letter-spacing: 8px;
-    font-weight: 100;
-    margin: 0;
-}
-
-.footer-subtitulo {
-    color: #ffb7c5; /* Color Rosa exacto de la entrada */
-    font-size: 0.9rem; /* Más pequeño */
-    letter-spacing: 5px;
-    margin: 5px 0 0 0;
-    text-transform: uppercase;
-}
-
-/* Efecto respirar (se mantiene igual, aplicado al bloque entero) */
-.efecto-respirar { animation: respirar 3s ease-in-out infinite; }
-
-@keyframes respirar {
-    0%, 100% { opacity: 0.3; text-shadow: 0 0 0px #fff; }
-    50% { opacity: 1; text-shadow: 0 0 10px rgba(255, 183, 197, 0.5); }
+/* Clase que moverá el texto al centro y lo desvanecerá */
+.final-animacion {
+    transform: translateY(-30vh) scale(1.2); /* Sube al centro y crece un poco */
+    opacity: 0;
 }
