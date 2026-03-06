@@ -1,42 +1,77 @@
-const pantalla = document.getElementById('pantallaInicio');
-const contenido = document.getElementById('contenidoPrincipal');
-const video = document.getElementById('miVideo');
-const audio = document.getElementById('miAudio');
-const sakuraContainer = document.getElementById('sakura-container');
+* { box-sizing: border-box; }
 
-function crearPetalo() {
-    const petalo = document.createElement('div');
-    petalo.classList.add('petalo');
-    const size = Math.random() * 7 + 4 + 'px';
-    petalo.style.left = Math.random() * 100 + 'vw';
-    petalo.style.width = size;
-    petalo.style.height = size;
-    petalo.style.animationDuration = Math.random() * 3 + 4 + 's';
-    if(sakuraContainer) sakuraContainer.appendChild(petalo);
-    setTimeout(() => { petalo.remove(); }, 6000);
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0d001a !important; /* Forzamos el color oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Times New Roman', serif;
 }
 
-pantalla.addEventListener('click', () => {
-    // 1. Mostrar el contenedor primero
-    pantalla.style.display = 'none';
-    contenido.style.display = 'flex';
-    
-    // 2. Intentar cargar y reproducir el video con un pequeño delay
-    // Esto ayuda a que el navegador "encuentre" el archivo en GitHub
-    video.load(); 
-    
-    setTimeout(() => {
-        video.play().then(() => {
-            video.muted = false; // Intentamos quitar el silencio
-        }).catch(error => {
-            console.log("Error al reproducir: ", error);
-            // Si falla, intentamos reproducirlo silenciado (obligatorio en muchos navegadores)
-            video.muted = true;
-            video.play();
-        });
-    }, 100);
+.petalo {
+    position: absolute;
+    background-color: #ffb7c5;
+    border-radius: 150% 0 150% 0;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 5;
+    animation: caer linear infinite;
+}
 
-    // 3. Iniciar audio y pétalos
-    audio.play().catch(e => console.log("Audio en espera"));
-    setInterval(crearPetalo, 300);
-});
+@keyframes caer {
+    0% { transform: translateY(-10vh) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(80px); }
+}
+
+.pantalla-inicio {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 100;
+    background: radial-gradient(circle, #1a0033 0%, #0d001a 100%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.texto-entrada { text-align: center; color: white; }
+.titulo-entrada { font-size: clamp(2.5rem, 10vw, 5rem); letter-spacing: 15px; margin: 0; }
+.subtitulo-entrada { color: #ffb7c5; letter-spacing: 8px; margin-top: 15px; }
+.instruccion { display: block; margin-top: 60px; font-size: 0.7rem; opacity: 0.4; animation: palpitar 2s infinite; }
+
+@keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
+
+.contenido {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+#miVideo {
+    height: 70vh; 
+    width: auto;
+    max-width: 90vw;
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(138, 43, 226, 0.6); 
+    border: 2px solid rgba(255, 183, 197, 0.3);
+    background-color: black;
+}
+
+.footer-texto { color: white; text-align: center; margin-top: 20px; }
+.footer-texto h1 { letter-spacing: 12px; font-weight: 100; font-size: 1.2rem; }
+.efecto-respirar { animation: respirar 3s ease-in-out infinite; }
+
+@keyframes respirar {
+    0%, 100% { opacity: 0.4; text-shadow: 0 0 0px #fff; }
+    50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 183, 197, 0.6); }
+}
