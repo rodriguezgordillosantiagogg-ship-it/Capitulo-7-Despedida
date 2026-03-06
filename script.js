@@ -17,22 +17,22 @@ function crearPetalo() {
 }
 
 pantalla.addEventListener('click', () => {
-    // 1. Quitar portada inmediatamente
+    // Quitar portada inmediatamente
     pantalla.style.display = 'none';
     
-    // 2. Mostrar contenido
+    // Mostrar contenido
     contenido.style.display = 'flex';
     
-    // 3. Intentar reproducir audio y video
-    // Activamos el sonido del video después de iniciar si el audio.mp3 falla
+    // Reproducir audio
     audio.play().catch(e => console.log("Audio en espera"));
     
+    // Reproducir video (primero intenta con sonido, si falla sigue)
     video.play().then(() => {
-        video.muted = false; // Intenta quitar el silencio si el navegador lo permite
+        video.muted = false; 
     }).catch(error => {
         console.error("Error al reproducir video:", error);
     });
 
-    // 4. Iniciar Sakura
+    // Iniciar Sakura
     setInterval(crearPetalo, 300);
 });
