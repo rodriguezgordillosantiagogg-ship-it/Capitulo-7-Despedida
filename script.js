@@ -7,7 +7,7 @@ const sakuraContainer = document.getElementById('sakura-container');
 function crearPetalo() {
     const petalo = document.createElement('div');
     petalo.classList.add('petalo');
-    const size = Math.random() * 7 + 4 + 'px';
+    const size = Math.random() * 6 + 3 + 'px';
     petalo.style.left = Math.random() * 100 + 'vw';
     petalo.style.width = size;
     petalo.style.height = size;
@@ -20,14 +20,18 @@ pantalla.addEventListener('click', () => {
     pantalla.style.display = 'none';
     contenido.style.display = 'flex';
     
-    // En móviles, primero damos Play y luego quitamos el Muted
+    // Forzamos al navegador a cargar el video
+    video.load();
+    
+    // Intentamos reproducir con sonido
     video.play().then(() => {
         video.muted = false;
-    }).catch(() => {
-        // Si el móvil es muy estricto, lo deja en silencio pero corriendo
+    }).catch(err => {
+        // Si el móvil lo bloquea, lo corre en silencio pero se verá la imagen
         video.play();
     });
 
-    audio.play().catch(e => console.log("Audio esperando toque"));
+    audio.play().catch(e => console.log("Audio esperando..."));
+    
     setInterval(crearPetalo, 300);
 });
