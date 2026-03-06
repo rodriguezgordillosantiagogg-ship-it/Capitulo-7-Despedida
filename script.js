@@ -1,12 +1,11 @@
 const pantalla = document.getElementById('pantallaInicio');
 const contenido = document.getElementById('contenidoPrincipal');
 const video = document.getElementById('miVideo');
-const audio = document.getElementById('miAudio');
+const audio = document.getElementById('audioFondo');
 const footer = document.getElementById('footerTexto');
-const estrellasContainer = document.getElementById('estrellas-container'); // Referencia
+const luna = document.getElementById('lunaFinal');
 const sakuraContainer = document.getElementById('sakura-container');
 let intervaloPetalos;
-let intervaloEstrellas;
 
 function crearPetalo() {
     const petalo = document.createElement('div');
@@ -20,84 +19,80 @@ function crearPetalo() {
     setTimeout(() => { petalo.remove(); }, 6000);
 }
 
-// FUNCIÓN PARA GENERAR UNA ESTRELLA INDIVIDUAL
-function crearEstrella() {
-    const estrella = document.createElement('div');
-    estrella.classList.add('estrella');
-    
-    // Tamaño aleatorio para variar
-    const size = Math.random() * 2 + 1 + 'px'; // Pequeñas, como estrellas
-    estrella.style.width = size;
-    estrella.style.height = size;
-    
-    // Posición aleatoria
-    estrella.style.left = Math.random() * 100 + 'vw';
-    estrella.style.top = Math.random() * 100 + 'vh';
-    
-    // Duración de parpadeo aleatoria para efecto asíncrono
-    const duracionParpadeo = Math.random() * 2 + 1.5 + 's';
-    estrella.style.animation = `parpadeoEstrella ${duracionParpadeo} ease-in-out infinite`;
-    
-    // Aparición lenta
-    estrella.style.transition = 'opacity 5s ease-in-out';
-    
-    if(estrellasContainer) estrellasContainer.appendChild(estrella);
-    
-    // Activamos la aparición lenta tras añadirla
-    setTimeout(() => { estrella.style.opacity = '1'; }, 100);
-    
-    // Limpieza opcional (después de 30s)
-    setTimeout(() => { estrella.remove(); }, 30000);
+function dispararExplosion() {
+    const centroX = window.innerWidth / 2;
+    const centroY = window.innerHeight / 2;
+
+    for (let i = 0; i < 90; i++) {
+        const chispa = document.createElement('div');
+        chispa.classList.add('chispa');
+        document.body.appendChild(chispa);
+
+        const angulo = Math.random() * Math.PI * 2;
+        const distancia = Math.random() * 450 + 50;
+        const destinoX = centroX + Math.cos(angulo) * distancia;
+        const destinoY = centroY + Math.sin(angulo) * distancia;
+
+        chispa.style.left = centroX + 'px';
+        chispa.style.top = centroY + 'px';
+
+        setTimeout(() => {
+            chispa.style.opacity = '1';
+            chispa.style.transition = `all ${Math.random() * 3 + 2}s cubic-bezier(0.1, 0.8, 0.2, 1)`;
+            chispa.style.left = destinoX + 'px';
+            chispa.style.top = destinoY + 'px';
+        }, 10);
+
+        setTimeout(() => {
+            chispa.style.opacity = (Math.random() * 0.4 + 0.2).toString();
+        }, 4000);
+    }
 }
 
 video.onended = function() {
-    // 1. El video se desvanece MUY lento (5s)
     video.style.opacity = "0";
-
-    // 2. Dejamos de crear pétalos
     clearInterval(intervaloPetalos);
 
-    // 3. El texto sube y desaparece lento (empieza a los 1.5s, dura 6s)
+    // 1. Subir al centro (sólido)
     setTimeout(() => {
-        footer.classList.add('final-animacion');
+        footer.classList.add('al-centro');
+    }, 1000);
+
+    // 2. Empezar a desvanecerse EN EL CENTRO
+    setTimeout(() => {
+        footer.classList.add('desvanecer-centro');
         
-        // 4. Bajamos el audio MUY lentamente
+        // El audio baja mientras el texto se desvanece
         const bajarAudio = setInterval(() => {
-            if (audio.volume > 0.05) {
-                audio.volume -= 0.05;
-            } else {
-                audio.pause();
-                clearInterval(bajarAudio);
-            }
-        }, 500);
-    }, 1500);
+            if (audio.volume > 0.05) audio.volume -= 0.05;
+            else { audio.pause(); clearInterval(bajarAudio); }
+        }, 600);
+    }, 5000); // Empieza a desvanecerse después de subir
 
-    // 5. APARECEN LAS ESTRELLAS (Esperamos 7s para que el video ya casi no se vea)
+    // 3. EXPLOSIÓN FINAL
     setTimeout(() => {
-        estrellasContainer.classList.add('mostrar-estrellas');
+        footer.style.display = 'none'; // Desaparece el texto original
+        dispararExplosion();
         
-        // Empezamos a crear estrellas rápidamente al principio
-        for(let i = 0; i < 30; i++) { setTimeout(crearEstrella, i * 50); }
-        
-        // Luego seguimos creando estrellas suavemente cada 100ms
-        intervaloEstrellas = setInterval(crearEstrella, 100);
-    }, 7000); 
+        setTimeout(() => {
+            luna.classList.add('mostrar-luna');
+        }, 300);
+    }, 11000); // 1s + 4s viaje + 6s desvanecer = 11s total
 
-    setTimeout(() => {
-        video.style.visibility = "hidden";
-    }, 7000);
+    setTimeout(() => { video.style.visibility = "hidden"; }, 6000);
 };
+
+// ... (Mantenemos iniciarTodo igual) ...
 
 async function iniciarTodo() {
     pantalla.style.display = 'none';
     contenido.style.display = 'flex';
-    video.load();
-    video.muted = true; 
+    video.load(); video.muted = true; 
     try {
         await video.play();
         setTimeout(() => { video.muted = false; }, 500);
     } catch (err) { video.play(); }
-    audio.play().catch(e => console.log("Audio ready"));
+    audio.play();
     intervaloPetalos = setInterval(crearPetalo, 300);
 }
 pantalla.addEventListener('click', iniciarTodo);
