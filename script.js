@@ -19,30 +19,31 @@ function crearPetalo() {
 }
 
 video.onended = function() {
-    // 1. El video desaparece
-    video.style.transition = "opacity 2s ease";
+    // 1. Video se desvanece en 5 segundos (muy lento)
+    video.style.transition = "opacity 5s ease";
     video.style.opacity = "0";
 
-    // 2. Dejan de nacer pétalos nuevos
+    // 2. Dejamos de crear pétalos
     clearInterval(intervaloPetalos);
 
-    // 3. El texto se mueve al centro y se desvanece
+    // 3. El texto inicia su desvanecimiento lento después de un momento
     setTimeout(() => {
         footer.classList.add('final-animacion');
-        // 4. Opcional: la música baja el volumen poco a poco
+        
+        // 4. Bajamos el audio MUY lentamente
         const bajarAudio = setInterval(() => {
-            if (audio.volume > 0.1) {
-                audio.volume -= 0.1;
+            if (audio.volume > 0.05) {
+                audio.volume -= 0.05;
             } else {
                 audio.pause();
                 clearInterval(bajarAudio);
             }
-        }, 300);
-    }, 1000);
+        }, 500); // Baja volumen cada medio segundo
+    }, 1500);
 
     setTimeout(() => {
         video.style.visibility = "hidden";
-    }, 4000);
+    }, 7000);
 };
 
 async function iniciarTodo() {
