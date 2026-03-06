@@ -35,23 +35,33 @@ body, html {
     height: 60vh; width: auto; max-width: 85vw;
     border-radius: 15px; box-shadow: 0 0 40px rgba(138, 43, 226, 0.5); 
     border: 1px solid rgba(255, 183, 197, 0.2); background-color: black;
-    transition: opacity 3s ease;
+    transition: opacity 4s ease;
 }
 .footer-texto-doble {
     text-align: center; margin-top: 20px;
     font-family: 'Times New Roman', serif;
     text-shadow: 0 0 15px rgba(255, 183, 197, 0.4);
-    transition: transform 4s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.5s ease;
+    /* Transición lenta: 7 segundos para subir y desvanecerse */
+    transition: transform 7s cubic-bezier(0.4, 0, 0.2, 1), opacity 7s ease-in-out;
     position: relative; z-index: 15;
 }
 .footer-titulo { color: white; font-size: 1.6rem; letter-spacing: 8px; font-weight: 100; margin: 0; }
 .footer-subtitulo { color: #ffb7c5; font-size: 0.9rem; letter-spacing: 5px; margin: 5px 0 0 0; text-transform: uppercase; }
 
-/* El texto sube rápido para explotar */
-.subir-al-centro { transform: translateY(-40vh) scale(1.2); }
-.explotar { opacity: 0 !important; transform: translateY(-40vh) scale(2); filter: blur(10px); }
+/* El texto sube y pierde opacidad a la vez */
+.subir-y-desvanecer { 
+    transform: translateY(-40vh) scale(1.1); 
+    opacity: 0.1; /* Se vuelve casi invisible al llegar arriba */
+}
 
-/* Estilo de las estrellas de la explosión */
+/* Efecto visual de explosión final */
+.explotar-final { 
+    opacity: 0 !important; 
+    transform: translateY(-40vh) scale(3); 
+    filter: blur(20px); 
+    transition: all 0.3s ease-out; 
+}
+
 .chispa {
     position: fixed; width: 3px; height: 3px;
     background-color: white; border-radius: 50%;
@@ -66,7 +76,7 @@ body, html {
     background-color: white; border-radius: 50%;
     opacity: 0; visibility: hidden;
     box-shadow: 0 0 50px white;
-    transition: opacity 6s ease-in-out;
+    transition: opacity 5s ease-in-out;
     z-index: 5;
 }
 #lunaFinal.mostrar-luna { opacity: 1; visibility: visible; }
