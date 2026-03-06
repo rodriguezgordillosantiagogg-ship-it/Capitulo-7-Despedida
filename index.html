@@ -8,22 +8,30 @@
 </head>
 <body>
 
+    <div id="sakura-container"></div>
+
     <div class="pantalla-inicio" id="pantallaInicio">
-        <button id="btnEntrar">CAPÍTULO 7: ENTRAR 🌙</button>
+        <div class="texto-entrada">
+            <h1 class="titulo-entrada">Capítulo 7</h1>
+            <p class="subtitulo-entrada">DESPEDIDA 🌙</p>
+            <span class="instruccion">( toca para entrar )</span>
+        </div>
     </div>
 
     <div class="contenido" id="contenidoPrincipal">
-        <video id="miVideo" loop playsinline>
-            <source src="video.mp4" type="video/mp4">
-        </video>
+        <div class="video-wrapper">
+            <video id="miVideo" loop playsinline>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+        </div>
         
         <audio id="miAudio" loop>
             <source src="musica.mp3" type="audio/mpeg">
         </audio>
 
-        <div class="texto-superpuesto">
-            <h1>Capítulo 7</h1>
-            <p>DESPEDIDA</p>
+        <div class="footer-texto">
+            <h2>LUNA</h2>
+            <p>Eterna Despedida</p>
         </div>
     </div>
 
