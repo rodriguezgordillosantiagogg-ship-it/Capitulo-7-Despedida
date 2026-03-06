@@ -6,69 +6,60 @@ body, html {
     overflow: hidden; font-family: 'Times New Roman', serif;
 }
 
-/* ... (Mantenemos estilos de pétalos y pantalla-inicio igual que antes) ... */
+/* Pétalos */
+.petalo { position: absolute; background-color: #ffb7c5; border-radius: 150% 0 150% 0; opacity: 0.6; pointer-events: none; z-index: 5; animation: caer linear infinite; }
+@keyframes caer { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg) translateX(80px); } }
 
-.petalo {
-    position: absolute; background-color: #ffb7c5;
-    border-radius: 150% 0 150% 0; opacity: 0.6;
-    pointer-events: none; z-index: 5; animation: caer linear infinite;
-}
-@keyframes caer {
-    0% { transform: translateY(-10vh) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(360deg) translateX(80px); }
-}
+/* Inicio */
+.pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #1a0033 0%, #0d001a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+.texto-entrada { text-align: center; }
+.titulo-entrada { font-size: clamp(2rem, 8vw, 5rem); letter-spacing: 10px; margin: 0; font-weight: 100; color: white !important; }
+.subtitulo-entrada { color: #ffb7c5 !important; letter-spacing: 6px; margin-top: 10px; font-size: 1rem; text-transform: uppercase; }
+.instruccion { display: block; margin-top: 40px; font-size: 0.8rem; color: white; opacity: 0.5; animation: palpitar 2s infinite; }
+@keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
-.pantalla-inicio {
-    position: fixed; top: 0; left: 0; z-index: 100;
-    background: radial-gradient(circle, #1a0033 0%, #0d001a 100%);
-    width: 100%; height: 100%; display: flex;
-    justify-content: center; align-items: center; cursor: pointer;
-}
+/* Contenido Principal */
+.contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
+#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 15px; box-shadow: 0 0 40px rgba(138, 43, 226, 0.4); border: 1px solid rgba(255, 183, 197, 0.2); transition: opacity 4s ease; background: black; }
 
-.contenido {
-    display: none; flex-direction: column;
-    align-items: center; justify-content: center;
-    width: 100%; height: 100%; z-index: 10;
-}
-
-#miVideo {
-    height: 60vh; width: auto; max-width: 85vw;
-    border-radius: 15px; box-shadow: 0 0 40px rgba(138, 43, 226, 0.5); 
-    border: 1px solid rgba(255, 183, 197, 0.2); background-color: black;
-    transition: opacity 4s ease;
-}
-
+/* Texto Final con Colores Corregidos */
 .footer-texto-doble {
     text-align: center; margin-top: 20px;
-    font-family: 'Times New Roman', serif;
-    text-shadow: 0 0 15px rgba(255, 183, 197, 0.4);
-    /* Transición de posición rápida (4s) y opacidad independiente */
     transition: transform 4s cubic-bezier(0.2, 0, 0.2, 1), opacity 6s ease-in-out;
     position: relative; z-index: 15;
 }
-
-/* PASO 1: El texto sube al centro (se mantiene sólido) */
-.al-centro { transform: translateY(-40vh) scale(1.2); }
-
-/* PASO 2: El texto se desvanece estando ya en el centro */
-.desvanecer-centro { opacity: 0.1; }
-
-/* PASO 3: Explosión final */
-.chispa {
-    position: fixed; width: 3px; height: 3px;
-    background-color: white; border-radius: 50%;
-    box-shadow: 0 0 12px white; pointer-events: none;
-    z-index: 20; opacity: 0;
+.footer-titulo { 
+    color: white !important; /* BLANCO */
+    font-size: 1.6rem; letter-spacing: 8px; font-weight: 100; margin: 0;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+.footer-subtitulo { 
+    color: #ffb7c5 !important; /* ROSADO */
+    font-size: 0.9rem; letter-spacing: 5px; margin: 5px 0 0 0; text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 183, 197, 0.5);
 }
 
-#lunaFinal {
+.al-centro { transform: translateY(-40vh) scale(1.2); }
+.desvanecer-centro { opacity: 0.05; }
+
+/* Estrellas (Sparkles) */
+.estrella-sparkle { position: fixed; width: 15px; height: 15px; z-index: 20; opacity: 0; pointer-events: none; }
+.estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 10px white; border-radius: 50%; }
+.estrella-sparkle::before { width: 100%; height: 2px; top: 50%; left: 0; transform: translateY(-50%); }
+.estrella-sparkle::after { width: 2px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
+
+@keyframes parpadeo { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
+
+/* Luna Creciente */
+#lunaCreciente {
     position: fixed; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90px; height: 90px;
-    background-color: white; border-radius: 50%;
+    width: 100px; height: 100px;
+    background-color: transparent; border-radius: 50%;
+    box-shadow: -25px 15px 0 0 white;
+    transform: translate(-20%, -60%) rotate(-15deg);
     opacity: 0; visibility: hidden;
-    box-shadow: 0 0 50px white;
+    filter: drop-shadow(0 0 15px white);
     transition: opacity 5s ease-in-out;
     z-index: 5;
 }
-#lunaFinal.mostrar-luna { opacity: 1; visibility: visible; }
+#lunaCreciente.mostrar-luna { opacity: 1; visibility: visible; }
