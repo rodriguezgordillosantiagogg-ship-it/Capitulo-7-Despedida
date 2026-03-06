@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Capítulo 7: El Último Adiós</title>
-    <link rel="stylesheet" href="style.css?v=12">
+    <title>Capítulo 7: Despedida</title>
+    <link rel="stylesheet" href="style.css?v=18">
 </head>
 <body style="background-color: #0d001a;">
-
     <div id="sakura-container"></div>
-
     <div class="pantalla-inicio" id="pantallaInicio">
         <div class="texto-entrada">
             <h1 class="titulo-entrada">Capitulo 7</h1>
@@ -17,26 +15,19 @@
             <span class="instruccion">( toca para entrar )</span>
         </div>
     </div>
-
     <div class="contenido" id="contenidoPrincipal">
-        <div class="video-wrapper">
+        <div id="video-wrapper">
             <video id="miVideo" playsinline muted preload="auto">
                 <source src="video.mp4" type="video/mp4">
             </video>
         </div>
-        
-        <audio id="miAudio" loop>
-            <source src="musica.mp3" type="audio/mpeg">
-        </audio>
-
+        <audio id="audioFondo" loop><source src="musica.mp3" type="audio/mpeg"></audio>
         <div class="footer-texto-doble" id="footerTexto">
             <h2 class="footer-titulo">Capitulo 7</h2>
             <p class="footer-subtitulo">DESPEDIDA</p>
         </div>
-
-        <div id="estrellas-container"></div>
+        <div id="lunaFinal"></div>
     </div>
-
-    <script src="script.js?v=12"></script>
+    <script src="script.js?v=18"></script>
 </body>
 </html>
