@@ -16,22 +16,36 @@ function crearPetalo() {
     setTimeout(() => { petalo.remove(); }, 6000);
 }
 
-pantalla.addEventListener('click', () => {
+// EFECTO DE DESVANECIMIENTO AL TERMINAR
+video.onended = function() {
+    // Transición suave de 2 segundos
+    video.style.transition = "opacity 2s ease";
+    video.style.opacity = "0";
+    
+    // Opcional: Después de que desaparezca, lo quitamos por completo
+    setTimeout(() => {
+        video.style.visibility = "hidden";
+    }, 2000);
+};
+
+async function iniciarTodo() {
     pantalla.style.display = 'none';
     contenido.style.display = 'flex';
-    
-    // Forzamos al navegador a cargar el video
+
     video.load();
+    video.muted = true; 
     
-    // Intentamos reproducir con sonido
-    video.play().then(() => {
-        video.muted = false;
-    }).catch(err => {
-        // Si el móvil lo bloquea, lo corre en silencio pero se verá la imagen
+    try {
+        await video.play();
+        setTimeout(() => {
+            video.muted = false;
+        }, 500);
+    } catch (err) {
         video.play();
-    });
+    }
 
     audio.play().catch(e => console.log("Audio esperando..."));
-    
     setInterval(crearPetalo, 300);
-});
+}
+
+pantalla.addEventListener('click', iniciarTodo);
