@@ -22,7 +22,7 @@ function crearPetalo() {
 function dispararExplosion() {
     const centroX = window.innerWidth / 2;
     const centroY = window.innerHeight / 2;
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 75; i++) {
         const estrella = document.createElement('div');
         estrella.classList.add('estrella-sparkle');
         document.body.appendChild(estrella);
@@ -47,21 +47,33 @@ function dispararExplosion() {
 }
 
 video.onended = function() {
+    // 1. Video desaparece suave
     video.style.opacity = "0";
     clearInterval(intervaloPetalos);
-    setTimeout(() => { footer.classList.add('al-centro'); }, 1000);
+
+    // 2. Texto sube al centro (Brillo normal)
     setTimeout(() => {
-        footer.classList.add('desvanecer-centro');
+        footer.classList.add('al-centro');
+    }, 1000);
+
+    // 3. EL DESTELLO DE SUPERNOVA (6s después de subir)
+    setTimeout(() => {
+        footer.classList.add('supernova');
+        
+        // El audio baja muy rápido durante el destello
         const bajarAudio = setInterval(() => {
-            if (audio.volume > 0.05) audio.volume -= 0.05;
+            if (audio.volume > 0.1) audio.volume -= 0.1;
             else { audio.pause(); clearInterval(bajarAudio); }
-        }, 600);
-    }, 5000); 
+        }, 200);
+    }, 6000); // 1s wait + 4s rise + 1s rest = 6s total
+
+    // 4. LA EXPLOSIÓN (2s después de empezar el destello, en el pico de brillo)
     setTimeout(() => {
         footer.style.visibility = 'hidden'; 
         dispararExplosion();
         setTimeout(() => { luna.classList.add('mostrar-luna'); }, 400);
-    }, 11000); 
+    }, 8000); // 1s + 4s + 1s rest + 2s supernova = 8s total
+
     setTimeout(() => { video.style.visibility = "hidden"; }, 6000);
 };
 
