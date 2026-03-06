@@ -1,33 +1,63 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Capítulo 7: Despedida</title>
-    <link rel="stylesheet" href="style.css?v=18">
-</head>
-<body style="background-color: #0d001a;">
-    <div id="sakura-container"></div>
-    <div class="pantalla-inicio" id="pantallaInicio">
-        <div class="texto-entrada">
-            <h1 class="titulo-entrada">Capitulo 7</h1>
-            <p class="subtitulo-entrada">DESPEDIDA</p>
-            <span class="instruccion">( toca para entrar )</span>
-        </div>
-    </div>
-    <div class="contenido" id="contenidoPrincipal">
-        <div id="video-wrapper">
-            <video id="miVideo" playsinline muted preload="auto">
-                <source src="video.mp4" type="video/mp4">
-            </video>
-        </div>
-        <audio id="audioFondo" loop><source src="musica.mp3" type="audio/mpeg"></audio>
-        <div class="footer-texto-doble" id="footerTexto">
-            <h2 class="footer-titulo">Capitulo 7</h2>
-            <p class="footer-subtitulo">DESPEDIDA</p>
-        </div>
-        <div id="lunaFinal"></div>
-    </div>
-    <script src="script.js?v=18"></script>
-</body>
-</html>
+* { box-sizing: border-box; }
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    background-color: #0d001a !important;
+    display: flex; justify-content: center; align-items: center;
+    overflow: hidden; font-family: 'Times New Roman', serif;
+}
+
+/* ... (Pétalos y Pantalla Inicio igual) ... */
+.petalo { position: absolute; background-color: #ffb7c5; border-radius: 150% 0 150% 0; opacity: 0.6; pointer-events: none; z-index: 5; animation: caer linear infinite; }
+@keyframes caer { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg) translateX(80px); } }
+.pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #1a0033 0%, #0d001a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+.texto-entrada { text-align: center; color: white !important; }
+.titulo-entrada { font-size: clamp(2rem, 8vw, 5rem); letter-spacing: 10px; margin: 0; font-weight: 100; color: white !important; }
+.subtitulo-entrada { color: #ffb7c5 !important; letter-spacing: 6px; margin-top: 10px; font-size: 1rem; }
+.instruccion { display: block; margin-top: 40px; font-size: 0.8rem; color: white; opacity: 0.5; animation: palpitar 2s infinite; }
+@keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+
+.contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
+#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 15px; box-shadow: 0 0 40px rgba(138, 43, 226, 0.5); border: 1px solid rgba(255, 183, 197, 0.2); transition: opacity 4s ease; }
+
+.footer-texto-doble {
+    text-align: center; margin-top: 20px;
+    color: white !important;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+    transition: transform 4s cubic-bezier(0.2, 0, 0.2, 1), opacity 6s ease-in-out;
+    position: relative; z-index: 15;
+}
+.al-centro { transform: translateY(-40vh) scale(1.2); }
+.desvanecer-centro { opacity: 0.05; }
+
+/* --- ESTRELLAS DE 4 PUNTAS (Sparkles) --- */
+.estrella-sparkle {
+    position: fixed; width: 15px; height: 15px;
+    z-index: 20; opacity: 0; pointer-events: none;
+}
+.estrella-sparkle::before, .estrella-sparkle::after {
+    content: ''; position: absolute; background: white;
+    box-shadow: 0 0 10px white; border-radius: 50%;
+}
+.estrella-sparkle::before { width: 100%; height: 2px; top: 50%; left: 0; transform: translateY(-50%); }
+.estrella-sparkle::after { width: 2px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
+
+@keyframes parpadeo {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+/* --- LUNA CRECIENTE CSS --- */
+#lunaCreciente {
+    position: fixed; top: 50%; left: 50%;
+    width: 100px; height: 100px;
+    background-color: transparent;
+    border-radius: 50%;
+    /* El truco: una sombra blanca circular crea la forma de media luna */
+    box-shadow: -25px 15px 0 0 white;
+    transform: translate(-20%, -60%) rotate(-15deg);
+    opacity: 0; visibility: hidden;
+    filter: drop-shadow(0 0 15px white);
+    transition: opacity 5s ease-in-out;
+    z-index: 5;
+}
+#lunaCreciente.mostrar-luna { opacity: 1; visibility: visible; }
