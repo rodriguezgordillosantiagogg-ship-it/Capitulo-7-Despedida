@@ -3,12 +3,13 @@ body, html {
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: #050505;
+    /* Fondo morado muy oscuro */
+    background-color: #0d001a; 
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    font-family: 'Times New Roman', serif;
+    font-family: 'serif', 'Times New Roman';
 }
 
 /* --- EFECTO SAKURA --- */
@@ -31,15 +32,15 @@ body, html {
 .pantalla-inicio {
     position: fixed;
     z-index: 100;
-    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('fondo.jpg') no-repeat center center;
-    background-size: cover;
+    /* Degradado morado sutil */
+    background: radial-gradient(circle, #1a0033 0%, #0d001a 100%);
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: opacity 1.5s ease;
+    transition: opacity 1.2s ease;
 }
 
 .texto-entrada {
@@ -48,24 +49,25 @@ body, html {
 }
 
 .titulo-entrada {
-    font-size: clamp(2rem, 8vw, 4rem);
+    font-size: clamp(2.5rem, 10vw, 5rem);
     letter-spacing: 15px;
     margin: 0;
-    font-weight: 200;
+    font-weight: 100;
+    text-shadow: 0 0 20px rgba(255, 183, 197, 0.3);
 }
 
 .subtitulo-entrada {
     color: #ffb7c5;
-    letter-spacing: 5px;
-    margin-top: 10px;
-    opacity: 0.8;
+    letter-spacing: 8px;
+    margin-top: 15px;
+    font-size: 1.1rem;
 }
 
 .instruccion {
     display: block;
-    margin-top: 50px;
+    margin-top: 60px;
     font-size: 0.7rem;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     opacity: 0.4;
     animation: palpitar 2s infinite;
 }
@@ -82,24 +84,33 @@ body, html {
     align-items: center;
     z-index: 10;
     opacity: 0;
-    transition: opacity 2s ease;
+    transition: opacity 1.5s ease;
 }
 
 #miVideo {
-    max-width: 300px; /* Formato TikTok */
-    border-radius: 15px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 300px;
+    border-radius: 12px;
+    /* Brillo morado alrededor del video */
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.4); 
+    border: 1px solid rgba(255, 183, 197, 0.2);
 }
 
 .footer-texto {
     color: white;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .footer-texto h2 {
-    letter-spacing: 8px;
+    letter-spacing: 12px;
     font-weight: 100;
     margin: 0;
+    color: #fdfdfd;
+}
+
+.footer-texto p {
+    color: #ffb7c5;
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    margin-top: 8px;
 }
