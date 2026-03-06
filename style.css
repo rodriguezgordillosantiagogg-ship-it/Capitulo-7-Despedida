@@ -75,25 +75,40 @@ body, html {
     display: none;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     z-index: 10;
 }
 
 #miVideo {
-    max-width: 300px;
-    border-radius: 12px;
-    box-shadow: 0 0 40px rgba(138, 43, 226, 0.4); 
-    border: 1px solid rgba(255, 183, 197, 0.2);
+    height: 75vh; 
+    width: auto;
+    max-width: 90vw;
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(138, 43, 226, 0.6); 
+    border: 2px solid rgba(255, 183, 197, 0.3);
+    background-color: black;
 }
 
 .footer-texto {
     color: white;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .footer-texto h1 {
     letter-spacing: 12px;
     font-weight: 100;
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.efecto-respirar {
+    animation: respirar 3s ease-in-out infinite;
+}
+
+@keyframes respirar {
+    0%, 100% { opacity: 0.4; text-shadow: 0 0 0px #fff; }
+    50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 183, 197, 0.6); }
 }
