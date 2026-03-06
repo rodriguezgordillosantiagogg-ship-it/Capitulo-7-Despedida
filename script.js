@@ -12,27 +12,23 @@ function crearPetalo() {
     petalo.style.width = size;
     petalo.style.height = size;
     petalo.style.animationDuration = Math.random() * 3 + 4 + 's';
-    sakuraContainer.appendChild(petalo);
+    if(sakuraContainer) sakuraContainer.appendChild(petalo);
     setTimeout(() => { petalo.remove(); }, 6000);
 }
 
 pantalla.addEventListener('click', () => {
-    // Quitar portada inmediatamente
     pantalla.style.display = 'none';
-    
-    // Mostrar contenido
     contenido.style.display = 'flex';
     
-    // Reproducir audio
-    audio.play().catch(e => console.log("Audio en espera"));
+    // Reproducir música
+    audio.play().catch(e => console.log("Audio esperando..."));
     
-    // Reproducir video (primero intenta con sonido, si falla sigue)
+    // Reproducir video y quitar silencio
     video.play().then(() => {
         video.muted = false; 
     }).catch(error => {
-        console.error("Error al reproducir video:", error);
+        console.log("Cargando video...");
     });
 
-    // Iniciar Sakura
     setInterval(crearPetalo, 300);
 });
