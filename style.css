@@ -22,10 +22,11 @@ body, html {
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
 #miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 15px; box-shadow: 0 0 40px rgba(138, 43, 226, 0.4); border: 1px solid rgba(255, 183, 197, 0.2); transition: opacity 4s ease; background: black; }
 
-/* Texto Final con Colores Corregidos */
+/* Texto Final y Sincronización */
 .footer-texto-doble {
     text-align: center; margin-top: 20px;
-    transition: transform 4s cubic-bezier(0.2, 0, 0.2, 1), opacity 6s ease-in-out;
+    /* Transición suave para subir */
+    transition: transform 4s cubic-bezier(0.2, 0, 0.2, 1), opacity 1s ease-in-out;
     position: relative; z-index: 15;
 }
 .footer-titulo { 
@@ -39,18 +40,37 @@ body, html {
     text-shadow: 0 0 10px rgba(255, 183, 197, 0.5);
 }
 
+/* PASO 1: Subir al centro (brillo normal) */
 .al-centro { transform: translateY(-40vh) scale(1.2); }
-.desvanecer-centro { opacity: 0.05; }
 
-/* Estrellas (Sparkles) */
+/* PASO 2: EL DESTELLO DE SUPERNOVA (Brillo cegador) */
+.supernova {
+    animation: supernova-flash 2s forwards ease-in-out;
+}
+
+@keyframes supernova-flash {
+    0% { transform: translateY(-40vh) scale(1.2); opacity: 1; filter: blur(0px); }
+    50% { 
+        transform: translateY(-40vh) scale(1.5); /* Crece */
+        opacity: 1; 
+        filter: blur(2px); /* Un poco de blur para el halo de luz */
+        color: white !important; /* Todo se vuelve blanco */
+        text-shadow: 0 0 50px white, 0 0 100px white, 0 0 150px white; /* Brillo cegador */
+    }
+    100% { 
+        transform: translateY(-40vh) scale(2); /* Estalla */
+        opacity: 0; 
+        filter: blur(20px); 
+    }
+}
+
+/* Estrellas y Luna (igual que antes) */
 .estrella-sparkle { position: fixed; width: 15px; height: 15px; z-index: 20; opacity: 0; pointer-events: none; }
 .estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 10px white; border-radius: 50%; }
 .estrella-sparkle::before { width: 100%; height: 2px; top: 50%; left: 0; transform: translateY(-50%); }
 .estrella-sparkle::after { width: 2px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
-
 @keyframes parpadeo { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
 
-/* Luna Creciente */
 #lunaCreciente {
     position: fixed; top: 50%; left: 50%;
     width: 100px; height: 100px;
