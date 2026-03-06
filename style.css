@@ -91,15 +91,9 @@ body, html {
     margin-top: 30px;
 }
 
-.footer-texto h2 {
+.footer-texto h1 {
     letter-spacing: 12px;
     font-weight: 100;
     margin: 0;
-}
-
-.footer-texto p {
-    color: #ffb7c5;
-    letter-spacing: 4px;
-    font-size: 0.8rem;
-    margin-top: 8px;
+    font-size: 1.5rem;
 }
