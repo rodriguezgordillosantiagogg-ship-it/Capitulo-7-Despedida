@@ -6,58 +6,87 @@ body, html {
     overflow: hidden; font-family: 'Arial Black', sans-serif;
 }
 
-/* --- PARTÍCULAS DE PÍXELES (ESTÉTICA GAMER) --- */
-#pixel-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+/* --- LLUVIA DE ESTRELLAS PARPADEANTES (MAGIA ORIGINAL) --- */
+#star-shower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-.pixel-digital {
+.estrella-caida {
     position: absolute;
-    /* Forma de bloque de pixel */
-    background-color: #a855f7;
+    background: white;
+    border-radius: 50%;
     opacity: 0.7;
     pointer-events: none;
-    animation: caerPixel linear infinite;
-    /* Brillo neón digital */
-    filter: drop-shadow(0 0 5px #a855f7) drop-shadow(0 0 10px #3b82f6);
+    /* Movimiento de caída suave */
+    animation: caer linear infinite, parpadear 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 5px white) drop-shadow(0 0 10px #fff);
 }
 
-@keyframes caerPixel {
-    0% { transform: translateY(-10vh) translateX(0); opacity: 0; }
-    5% { opacity: 0.8; }
-    50% { transform: translateY(50vh) translateX(20px); }
-    /* Movimiento errático al caer */
-    100% { transform: translateY(110vh) translateX(-20px); opacity: 0; }
+@keyframes caer {
+    0% { transform: translateY(-10vh) translateX(0); }
+    100% { transform: translateY(110vh) translateX(50px); } /* Caída diagonal suave */
+}
+
+@keyframes parpadear {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 0.9; transform: scale(1.1); }
 }
 
 /* --- Pantalla Inicio --- */
 .pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #1a0033 0%, #05000a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
-.titulo-entrada { font-size: 3.5rem; color: white !important; text-shadow: 0 0 20px #a855f7; margin: 0; }
+.titulo-entrada { font-size: 3.5rem; letter-spacing: 5px; color: white !important; text-shadow: 0 0 20px #a855f7; margin: 0; }
 .subtitulo-entrada { color: #a855f7 !important; font-size: 1.2rem; letter-spacing: 12px; margin-top: 10px; text-transform: uppercase; }
-.instruccion { display: block; margin-top: 30px; color: white; opacity: 0.5; font-size: 0.7rem; animation: palpitar 2s infinite; }
+.instruccion { display: block; margin-top: 30px; color: white; opacity: 0.6; font-size: 0.7rem; animation: palpitar 2s infinite; }
 @keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
 /* --- Contenido Principal --- */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
-#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 12px; box-shadow: 0 0 40px rgba(168, 85, 247, 0.4); transition: opacity 3s ease; }
+#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 12px; box-shadow: 0 0 40px rgba(168, 85, 247, 0.4); border: 2px solid rgba(168, 85, 247, 0.3); transition: opacity 3s ease; }
 
-.footer-texto-doble { text-align: center; margin-top: 20px; transition: transform 4s ease-out; position: relative; z-index: 15; }
-.al-centro { transform: translateY(-35vh) scale(1.3); }
+/* Texto Final y Supernova (Mismo comportamiento original) */
+.footer-texto-doble { text-align: center; margin-top: 25px; transition: transform 4s ease-out; position: relative; z-index: 15; }
+.footer-titulo { color: white !important; font-size: 2rem; margin: 0; text-shadow: 0 0 15px white; }
+.footer-subtitulo { color: #a855f7 !important; font-size: 1rem; letter-spacing: 8px; margin: 0; text-shadow: 0 0 10px #a855f7; }
 
-/* --- Supernova --- */
+.al-centro { transform: translateY(-40vh) scale(1.3); }
+
 .supernova { animation: flash 2.5s forwards ease-in-out; }
 @keyframes flash {
-    0% { transform: translateY(-35vh) scale(1.3); opacity: 1; filter: blur(0); }
-    50% { transform: translateY(-35vh) scale(1.8); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #a855f7; filter: blur(2px); }
-    100% { transform: translateY(-35vh) scale(3); opacity: 0; filter: blur(20px); }
+    0% { transform: translateY(-40vh) scale(1.3); opacity: 1; filter: blur(0); }
+    50% { transform: translateY(-40vh) scale(1.8); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #a855f7; filter: blur(2px); }
+    100% { transform: translateY(-40vh) scale(3); opacity: 0; filter: blur(20px); }
 }
 
-/* --- Galaxia Dinámica --- */
-#galaxiaGenerada { position: fixed; top: 50%; left: 50%; width: 2px; height: 2px; opacity: 0; visibility: hidden; transition: opacity 5s ease; z-index: 5; animation: rotar 40s linear infinite; }
-.estrella-galaxia { position: absolute; border-radius: 50%; }
-#galaxiaGenerada.mostrar-galaxia { opacity: 1; visibility: visible; }
-@keyframes rotar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+/* --- SOL FINAL CSS (REEMPLAZANDO GALAXIA) --- */
+#solFinal {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px; height: 150px;
+    opacity: 0; visibility: hidden;
+    transition: opacity 5s ease;
+    z-index: 5;
+    display: flex; justify-content: center; align-items: center;
+}
 
-/* Chispas */
-.estrella-sparkle { position: fixed; width: 12px; height: 12px; z-index: 20; opacity: 0; }
+.centro-sol {
+    width: 60px; height: 60px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 40px white, 0 0 80px #fff;
+}
+
+/* Rayos del sol con gradiente */
+.rayos {
+    position: absolute; width: 140px; height: 140px;
+    background: repeating-conic-gradient(from 0deg, white 0deg 10deg, transparent 10deg 30deg);
+    border-radius: 50%;
+    mask-image: radial-gradient(circle, transparent 35%, black 40%);
+    -webkit-mask-image: radial-gradient(circle, transparent 35%, black 40%);
+}
+
+#solFinal.mostrar-sol { opacity: 1; visibility: visible; animation: rotarSol 30s linear infinite; }
+@keyframes rotarSol { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+/* Chispas de la explosion */
+.estrella-sparkle { position: fixed; width: 12px; height: 12px; z-index: 20; opacity: 0; pointer-events: none; }
 .estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 8px white; }
 .estrella-sparkle::before { width: 100%; height: 1.5px; top: 50%; left: 0; }
 .estrella-sparkle::after { width: 1.5px; height: 100%; left: 50%; top: 0; }
