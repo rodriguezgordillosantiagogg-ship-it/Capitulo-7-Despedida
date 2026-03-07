@@ -1,26 +1,62 @@
 * { box-sizing: border-box; }
-body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #05000a !important; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial Black', sans-serif; }
-.petalo { position: absolute; background-color: #a855f7; border-radius: 50%; opacity: 0.4; pointer-events: none; animation: caer linear infinite; }
-@keyframes caer { 0% { transform: translateY(-10vh); } 100% { transform: translateY(110vh) translateX(40px); } }
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    background-color: #05000a !important;
+    display: flex; justify-content: center; align-items: center;
+    overflow: hidden; font-family: 'Arial Black', sans-serif;
+}
+
+/* --- PARTÍCULAS DE PÍXELES (ESTÉTICA GAMER) --- */
+#pixel-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+
+.pixel-digital {
+    position: absolute;
+    /* Forma de bloque de pixel */
+    background-color: #a855f7;
+    opacity: 0.7;
+    pointer-events: none;
+    animation: caerPixel linear infinite;
+    /* Brillo neón digital */
+    filter: drop-shadow(0 0 5px #a855f7) drop-shadow(0 0 10px #3b82f6);
+}
+
+@keyframes caerPixel {
+    0% { transform: translateY(-10vh) translateX(0); opacity: 0; }
+    5% { opacity: 0.8; }
+    50% { transform: translateY(50vh) translateX(20px); }
+    /* Movimiento errático al caer */
+    100% { transform: translateY(110vh) translateX(-20px); opacity: 0; }
+}
+
+/* --- Pantalla Inicio --- */
 .pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #1a0033 0%, #05000a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
 .titulo-entrada { font-size: 3.5rem; color: white !important; text-shadow: 0 0 20px #a855f7; margin: 0; }
-.subtitulo-entrada { color: #a855f7 !important; font-size: 1.2rem; letter-spacing: 12px; margin-top: 10px; }
+.subtitulo-entrada { color: #a855f7 !important; font-size: 1.2rem; letter-spacing: 12px; margin-top: 10px; text-transform: uppercase; }
+.instruccion { display: block; margin-top: 30px; color: white; opacity: 0.5; font-size: 0.7rem; animation: palpitar 2s infinite; }
+@keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+
+/* --- Contenido Principal --- */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
 #miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 12px; box-shadow: 0 0 40px rgba(168, 85, 247, 0.4); transition: opacity 3s ease; }
+
 .footer-texto-doble { text-align: center; margin-top: 20px; transition: transform 4s ease-out; position: relative; z-index: 15; }
 .al-centro { transform: translateY(-35vh) scale(1.3); }
+
+/* --- Supernova --- */
 .supernova { animation: flash 2.5s forwards ease-in-out; }
 @keyframes flash {
-    0% { transform: translateY(-35vh) scale(1.3); opacity: 1; }
-    50% { transform: translateY(-35vh) scale(1.8); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #a855f7; }
+    0% { transform: translateY(-35vh) scale(1.3); opacity: 1; filter: blur(0); }
+    50% { transform: translateY(-35vh) scale(1.8); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #a855f7; filter: blur(2px); }
     100% { transform: translateY(-35vh) scale(3); opacity: 0; filter: blur(20px); }
 }
+
+/* --- Galaxia Dinámica --- */
 #galaxiaGenerada { position: fixed; top: 50%; left: 50%; width: 2px; height: 2px; opacity: 0; visibility: hidden; transition: opacity 5s ease; z-index: 5; animation: rotar 40s linear infinite; }
 .estrella-galaxia { position: absolute; border-radius: 50%; }
 #galaxiaGenerada.mostrar-galaxia { opacity: 1; visibility: visible; }
 @keyframes rotar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-#mensajeFinal { position: fixed; bottom: 15%; color: white; font-size: 1rem; letter-spacing: 12px; opacity: 0; transition: opacity 4s ease; text-shadow: 0 0 10px #a855f7; z-index: 20; }
-.mostrar-mensaje { opacity: 0.7 !important; }
+
+/* Chispas */
 .estrella-sparkle { position: fixed; width: 12px; height: 12px; z-index: 20; opacity: 0; }
 .estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 8px white; }
 .estrella-sparkle::before { width: 100%; height: 1.5px; top: 50%; left: 0; }
