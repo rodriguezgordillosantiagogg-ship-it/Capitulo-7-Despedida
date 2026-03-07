@@ -6,11 +6,13 @@ body, html {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Lluvia de Píxeles */
+/* Lluvia de Píxeles Grandes */
 .pixel-caida {
-    position: absolute; background: white; width: 2px; height: 2px;
-    border-radius: 50%; opacity: 0.5; pointer-events: none;
-    box-shadow: 0 0 5px #ff00ff; z-index: 1;
+    position: absolute; background: white; 
+    width: 6px; height: 6px; /* MÁS GRANDES (antes 2px) */
+    border-radius: 50%; opacity: 0.7; pointer-events: none;
+    box-shadow: 0 0 10px #ff00ff; /* MÁS GLOW (antes 5px) */
+    z-index: 1;
 }
 
 /* Pantalla de Entrada */
@@ -20,57 +22,55 @@ body, html {
     display: flex; justify-content: center; align-items: center; cursor: pointer;
 }
 
-.titulo-entrada, .footer-titulo { 
-    font-size: 3.2rem; color: #FFFFFF !important; 
-    margin: 0; letter-spacing: -1px; text-transform: uppercase;
-}
-
-.subtitulo-entrada, .footer-subtitulo { 
-    font-family: 'Teko'; color: #ff00ff !important; 
-    font-size: 1.8rem; letter-spacing: 15px; margin: 0; text-transform: uppercase;
-}
-
+.titulo-entrada, .footer-titulo { font-size: 3.2rem; color: #FFFFFF !important; margin: 0; letter-spacing: -1px; text-transform: uppercase; }
+.subtitulo-entrada, .footer-subtitulo { font-family: 'Teko'; color: #ff00ff !important; font-size: 1.8rem; letter-spacing: 15px; margin: 0; text-transform: uppercase; }
 .divider { width: 45px; height: 2px; background: #ff00ff; margin: 20px auto; box-shadow: 0 0 10px #ff00ff; }
-
-.instruccion { 
-    font-family: 'Teko'; color: #FFFFFF !important; 
-    letter-spacing: 4px; animation: breath 2s infinite; opacity: 0.7; 
-}
+.instruccion { font-family: 'Teko'; color: #FFFFFF !important; letter-spacing: 4px; animation: breath 2s infinite; opacity: 0.7; }
 
 @keyframes breath { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
 /* Contenedor de Video */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
-
 .video-wrapper { width: 90%; display: flex; justify-content: center; }
-
-#miVideo { 
-    height: 55vh; /* Ajustado para que no sea ni muy chico ni muy grande */
-    width: auto; max-width: 100%;
-    border-radius: 5px; border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: opacity 1s ease;
-}
-
+#miVideo { height: 55vh; width: auto; max-width: 100%; border-radius: 5px; border: 1px solid rgba(255, 255, 255, 0.1); transition: opacity 1s ease; }
 .footer-texto-doble { text-align: center; margin-top: 25px; transition: all 3s ease; }
 .al-centro { transform: translateY(-30vh) scale(1.1); }
 
-/* Sol Estilizado (No exagerado) */
+/* --- NUEVO SOL ESTILO ICONOGRÁFICO --- */
 #solFinal {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 220px; height: 220px; opacity: 0; visibility: hidden; transition: 3s;
+    width: 250px; height: 250px; opacity: 0; visibility: hidden; transition: 3s;
+    z-index: 5;
 }
 #solFinal.mostrar-sol { opacity: 1; visibility: visible; }
 
 .centro-sol { 
-    position: absolute; width: 55px; height: 55px; background: #FFFFFF; 
-    border-radius: 50%; box-shadow: 0 0 30px #FFFFFF, 0 0 50px #ff00ff;
+    position: absolute; width: 80px; height: 80px; background: #FFFFFF; 
+    border-radius: 50%; box-shadow: 0 0 40px #FFFFFF, 0 0 70px #ff00ff;
     left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5;
 }
 
+/* LOS RAYOS ONDULADOS (NUEVO ESTILO) */
+/* Usamos sombras CSS múltiples para crear la forma de los rayos */
 .rayos {
     position: absolute; width: 100%; height: 100%;
-    background: repeating-conic-gradient(from 0deg, #FFFFFF 0deg 4deg, transparent 4deg 12deg);
-    border-radius: 50%; opacity: 0.25; animation: rotar 30s linear infinite;
+    border-radius: 50%;
+    /* Esta compleja sombra crea la corona de rayos cortos y ondulados */
+    box-shadow: 
+        0 -75px 0 -45px #FFFFFF, /* Rayo Arriba */
+        0 75px 0 -45px #FFFFFF,  /* Rayo Abajo */
+        -75px 0 0 -45px #FFFFFF, /* Rayo Izq */
+        75px 0 0 -45px #FFFFFF,  /* Rayo Der */
+        -55px -55px 0 -45px #FFFFFF, /* Diag Sup-Izq */
+        55px -55px 0 -45px #FFFFFF,  /* Diag Sup-Der */
+        -55px 55px 0 -45px #FFFFFF,  /* Diag Inf-Izq */
+        55px 55px 0 -45px #FFFFFF,   /* Diag Inf-Der */
+        
+        /* Capa de resplandor fucsia detrás */
+        0 0 90px #ff00ff;
+    
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    animation: rotar 30s linear infinite; z-index: 1;
 }
 
 @keyframes rotar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
