@@ -5,7 +5,7 @@ const footer = document.getElementById('footerTexto');
 const solContenedor = document.getElementById('solFinal');
 const pixelContainer = document.getElementById('pixel-container');
 
-// Función para crear píxeles grandes y frecuentes
+// Crear la lluvia de píxeles (MÁS GRANDES Y FRECUENTES)
 function crearPixel() {
     const p = document.createElement('div');
     p.className = 'pixel-caida';
@@ -13,9 +13,9 @@ function crearPixel() {
     p.style.top = '-5vh';
     pixelContainer.appendChild(p);
 
-    const duracion = Math.random() * 2500 + 2000; // Velocidad de caída
+    const duracion = Math.random() * 3000 + 2500;
     const anim = p.animate([
-        { transform: 'translateY(0)', opacity: 0.8 },
+        { transform: 'translateY(0)', opacity: 0.8 }, /* Más opacos */
         { transform: 'translateY(110vh)', opacity: 0 }
     ], { duration: duracion, easing: 'linear' });
 
@@ -33,15 +33,16 @@ function iniciarTodo() {
         
         video.play().catch(e => console.log("Error de reproducción:", e));
         
-        // LLUVIA MUCHO MÁS DENSA (Se crea un píxel cada 100ms)
-        setInterval(crearPixel, 100); 
+        // INICIAR LLUVIA CONSTANTE (MÁS RÁPIDO - antes 180ms)
+        setInterval(crearPixel, 120); /* Crea un píxel cada 120ms para mayor densidad */
     }, 800);
 }
 
+// Eventos de entrada
 pantalla.onclick = iniciarTodo;
 pantalla.ontouchstart = iniciarTodo;
 
-// Transición al finalizar el video
+// Manejo del final
 video.onended = function() {
     video.style.opacity = "0";
     
