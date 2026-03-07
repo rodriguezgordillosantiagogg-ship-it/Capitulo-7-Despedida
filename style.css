@@ -2,7 +2,7 @@
 body, html {
     margin: 0; padding: 0; width: 100%; height: 100%;
     /* Tu color fucsia suavizado */
-    background-color: #2a001a !important; 
+    background-color: #0b0b0b !important; 
     display: flex; justify-content: center; align-items: center;
     overflow: hidden;
     /* Fuente por defecto para el cuerpo si falla la principal */
@@ -14,7 +14,7 @@ body, html {
 .pixel-caida {
     position: absolute; background: white; width: 5px; height: 5px;
     opacity: 0.8; pointer-events: none; animation: caerVertical linear infinite, parpadeoGlitch 2s step-end infinite;
-    filter: drop-shadow(0 0 5px #0b0b0b);
+    filter: drop-shadow(0 0 5px #ff00ff);
 }
 @keyframes caerVertical { 0% { transform: translateY(-10vh); } 100% { transform: translateY(110vh); } }
 @keyframes parpadeoGlitch { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.2; } }
