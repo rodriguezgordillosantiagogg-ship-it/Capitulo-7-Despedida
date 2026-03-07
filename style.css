@@ -6,12 +6,12 @@ body, html {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Lluvia de Píxeles Grandes y Brillantes */
+/* Lluvia de Píxeles GRANDES Y BRILLANTES */
 .pixel-caida {
     position: absolute; background: white; 
-    width: 6px; height: 6px; 
-    border-radius: 50%; opacity: 0.8; pointer-events: none;
-    box-shadow: 0 0 12px #ff00ff; 
+    width: 6px; height: 6px; /* MÁS GRANDES (antes 2px) */
+    border-radius: 50%; opacity: 0.7; pointer-events: none;
+    box-shadow: 0 0 10px #ff00ff; /* MÁS GLOW (antes 5px) */
     z-index: 1;
 }
 
@@ -41,7 +41,7 @@ body, html {
 
 @keyframes breath { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-/* Contenido Principal */
+/* Contenedor de Video */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
 
 .video-wrapper { width: 90%; display: flex; justify-content: center; }
@@ -55,11 +55,13 @@ body, html {
 .footer-texto-doble { text-align: center; margin-top: 25px; transition: all 3s ease; }
 .al-centro { transform: translateY(-30vh) scale(1.1); }
 
-/* --- SOL ESTILO ICONOGRÁFICO (Sin archivos externos) --- */
+/* --- NUEVO SOL ESTILO ICONOGRÁFICO BLINDADO (No estorba clics) --- */
 #solFinal {
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    position: fixed; top: 50%; left: 50%; 
+    transform: translate(-50%, -50%) scale(0.9); /* Ajustado a un tamaño equilibrado */
     width: 250px; height: 250px; opacity: 0; visibility: hidden; transition: 3s;
     z-index: 5;
+    pointer-events: none; /* No estorba clics */
 }
 
 #solFinal.mostrar-sol { opacity: 1; visibility: visible; }
@@ -70,20 +72,27 @@ body, html {
     left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5;
 }
 
-/* Rayos cortos y definidos estilo icono */
+/* Rayos cortos y definidos estilo icono (FORZADO CON SOMBRAS CSS) */
+/* He quitado los bordes dashed largos y he usado sombras compactas */
 .rayos {
     position: absolute; width: 100%; height: 100%;
     border-radius: 50%;
-    /* Múltiples sombras para crear los rayos cortos alrededor del centro */
+    /* Múltiples sombras agresivas para crear los rayos ondulados */
     box-shadow: 
-        0 -75px 0 -40px #FFFFFF, 0 75px 0 -40px #FFFFFF, 
-        -75px 0 0 -40px #FFFFFF, 75px 0 0 -40px #FFFFFF, 
-        -55px -55px 0 -40px #FFFFFF, 55px -55px 0 -40px #FFFFFF, 
-        -55px 55px 0 -40px #FFFFFF, 55px 55px 0 -40px #FFFFFF,
-        0 0 80px rgba(255, 0, 255, 0.5); /* Resplandor fucsia suave */
+        0 -75px 0 -45px #FFFFFF, /* Rayo Arriba */
+        0 75px 0 -45px #FFFFFF,  /* Rayo Abajo */
+        -75px 0 0 -45px #FFFFFF, /* Rayo Izq */
+        75px 0 0 -45px #FFFFFF,  /* Rayo Der */
+        -55px -55px 0 -45px #FFFFFF, /* Diag Sup-Izq */
+        55px -55px 0 -45px #FFFFFF,  /* Diag Sup-Der */
+        -55px 55px 0 -45px #FFFFFF,  /* Diag Inf-Izq */
+        55px 55px 0 -45px #FFFFFF,   /* Diag Inf-Der */
+        
+        /* Capa de resplandor fucsia detrás */
+        0 0 90px #ff00ff;
     
     top: 50%; left: 50%; transform: translate(-50%, -50%);
-    animation: rotar 25s linear infinite; z-index: 1;
+    animation: rotar 30s linear infinite; z-index: 1;
 }
 
 @keyframes rotar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
