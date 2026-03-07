@@ -5,7 +5,7 @@ const footer = document.getElementById('footerTexto');
 const solContenedor = document.getElementById('solFinal');
 const starShowerContainer = document.getElementById('star-shower-container');
 
-// --- GENERADOR DE ESTRELLAS CAÍDAS PARPADEANTES (MAGIA ORIGINAL) ---
+// --- GENERADOR DE ESTRELLAS CAÍDAS PARPADEANTES ---
 function crearEstrella() {
     const p = document.createElement('div');
     p.classList.add('estrella-caida');
@@ -50,7 +50,7 @@ function dispararExplosion() {
 video.onended = function() {
     video.style.opacity = "0";
     
-    // Texto sube al centro (Mismo comportamiento original)
+    // Texto sube al centro
     setTimeout(() => footer.classList.add('al-centro'), 800);
 
     // Destello Supernova
@@ -62,7 +62,7 @@ video.onended = function() {
     setTimeout(() => {
         footer.style.display = 'none';
         dispararExplosion();
-        // Aparece el Sol Minimalista en lugar de la galaxia
+        // Aparece el Sol Minimalista
         setTimeout(() => {
             solContenedor.classList.add('mostrar-sol');
         }, 500);
@@ -82,7 +82,7 @@ async function iniciarTodo() {
     video.volume = 1.0; // Usamos solo el audio del video
     try { await video.play(); } catch (e) { video.play(); }
     
-    // --- GENERAR ESTRELLAS CONSTANTEMENTE (Lógica Original) ---
+    // --- GENERAR ESTRELLAS CONSTANTEMENTE ---
     setInterval(crearEstrella, 300); // Una estrella cada 300ms
 }
 
