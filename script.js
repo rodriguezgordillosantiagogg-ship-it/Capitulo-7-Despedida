@@ -3,19 +3,17 @@ const contenido = document.getElementById('contenidoPrincipal');
 const video = document.getElementById('miVideo');
 const footer = document.getElementById('footerTexto');
 const solContenedor = document.getElementById('solFinal');
-const pixelShowerContainer = document.getElementById('pixel-shower-container');
+const pixelShowerContainer = document.getElementById('pixel-shower-container'); // Nombre corregido
 
 function crearPixel() {
     const p = document.createElement('div');
     p.classList.add('pixel-caida');
     p.style.left = Math.random() * 100 + 'vw';
-    const sizes = [4, 6, 8];
-    const s = sizes[Math.floor(Math.random() * sizes.length)] + 'px';
-    p.style.width = s; 
-    p.style.height = s;
-    const dur = Math.random() * 3 + 3 + 's';
+    const s = Math.random() * 5 + 3 + 'px'; // Tamaños variados
+    p.style.width = s; p.style.height = s;
+    const dur = Math.random() * 3 + 4 + 's'; // Caída más lenta y suave
     p.style.animationDuration = `${dur}, ${Math.random() * 0.5 + 0.3}s`;
-    pixelShowerContainer.appendChild(p);
+    if(pixelShowerContainer) pixelShowerContainer.appendChild(p);
     setTimeout(() => { p.remove(); }, parseFloat(dur) * 1000);
 }
 
@@ -62,7 +60,7 @@ async function iniciarTodo() {
     video.load();
     video.volume = 1.0;
     try { await video.play(); } catch (e) { video.play(); }
-    setInterval(crearPixel, 150);
+    setInterval(crearPixel, 180); // Intervalo más lento para más elegancia
 }
 
 pantalla.addEventListener('click', iniciarTodo);
