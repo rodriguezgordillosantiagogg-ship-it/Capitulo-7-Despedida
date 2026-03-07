@@ -21,9 +21,10 @@
 .centro-sol { 
     width: 90px; 
     height: 90px; 
-    background: white; 
+    background: #ff00ff; /* --- TOTALMENTE MAGENTA --- */
     border-radius: 50%; 
-    box-shadow: 0 0 50px white, 0 0 100px #ff00ff; 
+    /* Brillo magenta intenso */
+    box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff00ff, 0 0 120px rgba(255, 0, 255, 0.5); 
     position: relative;
     z-index: 10;
 }
@@ -43,12 +44,15 @@
 .rayo-linea {
     position: absolute;
     width: 2px;
-    height: 180px; 
-    background: linear-gradient(to top, #ff00ff, white, transparent);
+    height: 190px; /* Un poco más largos para destacar */
+    /* Gradiente Magenta -> Magenta más suave -> Transparente */
+    background: linear-gradient(to top, #ff00ff, rgba(255, 0, 255, 0.8), transparent);
     transform-origin: bottom center;
     bottom: 50%; 
-    opacity: 0.7;
+    opacity: 0.8; /* Un poco más opacos para que se vean mejor */
     border-radius: 2px;
+    /* Resplandor magenta en cada rayo */
+    filter: drop-shadow(0 0 5px #ff00ff);
 }
 
 @keyframes girarSol {
