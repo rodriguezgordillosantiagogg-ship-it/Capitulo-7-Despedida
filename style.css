@@ -1,85 +1,77 @@
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
 body, html {
     margin: 0; padding: 0; width: 100%; height: 100%;
-    background-color: #000000 !important; 
-    display: flex; justify-content: center; align-items: center;
-    overflow: hidden; font-family: 'Montserrat', sans-serif;
+    background-color: #000000; overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* Brillo ambiental detrás del texto */
 .eclipse-glow {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(255, 0, 255, 0.2) 0%, transparent 70%);
-    filter: blur(60px); z-index: 0;
+    width: 300px; height: 300px; z-index: 0;
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.15) 0%, transparent 70%);
 }
 
-/* Pantalla Inicial */
 .pantalla-inicio { 
-    position: fixed; top: 0; left: 0; z-index: 100; 
-    width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; 
+    position: fixed; top: 0; left: 0; z-index: 9999; 
+    width: 100%; height: 100%; background: #000;
+    display: flex; justify-content: center; align-items: center; cursor: pointer; 
 }
 
-.titulo-entrada { 
-    font-family: 'Montserrat', sans-serif; font-weight: 900;
-    font-size: 3.2rem; color: white; margin: 0; letter-spacing: -1px;
-}
+.titulo-entrada { font-size: 3rem; color: white; margin: 0; letter-spacing: -1px; }
+.subtitulo-entrada { font-family: 'Teko'; color: #ff00ff; font-size: 1.8rem; letter-spacing: 15px; margin: 0; }
+.divider { width: 40px; height: 1px; background: #ff00ff; margin: 20px auto; box-shadow: 0 0 10px #ff00ff; }
+.instruccion { font-family: 'Teko'; color: white; letter-spacing: 3px; animation: breath 2s infinite; opacity: 0.6; }
 
-.subtitulo-entrada { 
-    font-family: 'Teko', sans-serif; font-weight: 300;
-    color: #ff00ff !important; font-size: 1.8rem; 
-    letter-spacing: 18px; margin: 5px 0 0 10px;
-}
+@keyframes breath { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
 
-.divider {
-    width: 50px; height: 1px; background: #ff00ff;
-    margin: 25px auto; box-shadow: 0 0 10px #ff00ff;
-}
-
-.instruccion { 
-    font-family: 'Teko', sans-serif; color: white !important; 
-    font-size: 1rem; letter-spacing: 5px; text-transform: uppercase;
-    animation: breath 3s infinite;
-}
-
-@keyframes breath { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
-
-/* Video y Contenido */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
-#miVideo { height: 50vh; border-radius: 4px; box-shadow: 0 0 40px rgba(255, 0, 255, 0.2); transition: opacity 1s ease; }
+#miVideo { height: 45vh; border-radius: 4px; transition: opacity 1s; }
 
-.footer-texto-doble { text-align: center; margin-top: 30px; transition: transform 4s ease-out, opacity 2s ease; }
-.footer-titulo { font-family: 'Montserrat', sans-serif; font-weight: 900; color: white !important; font-size: 2.2rem; margin: 0; }
-.footer-subtitulo { font-family: 'Teko', sans-serif; font-weight: 300; color: #ff00ff !important; font-size: 1.4rem; letter-spacing: 12px; margin: 0; }
+.footer-texto-doble { text-align: center; margin-top: 20px; transition: all 3s ease; }
+.al-centro { transform: translateY(-30vh) scale(1.1); }
 
-.al-centro { transform: translateY(-35vh) scale(1.1); }
-
-/* --- SOL FINAL CORREGIDO --- */
+/* SOL Y RAYOS */
 #solFinal {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 280px; height: 280px; opacity: 0; visibility: hidden; transition: 4s ease;
+    width: 300px; height: 300px; opacity: 0; visibility: hidden; transition: 3s;
 }
-
 #solFinal.mostrar-sol { opacity: 1; visibility: visible; }
 
 .centro-sol { 
-    position: absolute; width: 75px; height: 75px; background: white; 
-    border-radius: 50%; box-shadow: 0 0 40px white, 0 0 80px #ff00ff;
-    left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;
+    position: absolute; width: 60px; height: 60px; background: white; 
+    border-radius: 50%; box-shadow: 0 0 40px white, 0 0 70px #ff00ff;
+    left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5;
 }
-
 .rayos {
     position: absolute; width: 100%; height: 100%;
     background: repeating-conic-gradient(from 0deg, white 0deg 10deg, transparent 10deg 20deg);
-    border-radius: 50%; opacity: 0.4;
-    animation: rotar 25s linear infinite; z-index: 1;
+    border-radius: 50%; opacity: 0.3; animation: rotar 20s linear infinite;
 }
-
 @keyframes rotar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-/* Chispas Táctiles */
+/* POLAROIDS */
+.galeria-polaroid { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+.polaroid {
+    position: absolute; width: 65px; height: 80px; background: white; padding: 4px 4px 12px 4px;
+    border-radius: 2px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0; transform: scale(0); cursor: pointer; z-index: 10;
+}
+#solFinal.mostrar-sol .polaroid { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)) rotate(var(--tr)); }
+
+/* Posiciones (Variables CSS para cada foto) */
+.polaroid:nth-child(1) { --tx: -100px; --ty: -110px; --tr: -10deg; }
+.polaroid:nth-child(2) { --tx: 100px; --ty: -110px; --tr: 15deg; }
+.polaroid:nth-child(3) { --tx: -130px; --ty: 10px; --tr: -5deg; }
+.polaroid:nth-child(4) { --tx: 130px; --ty: 10px; --tr: 10deg; }
+.polaroid:nth-child(5) { --tx: -80px; --ty: 120px; --tr: -15deg; }
+.polaroid:nth-child(6) { --tx: 80px; --ty: 120px; --tr: 5deg; }
+
+.polaroid img { width: 100%; height: 55px; object-fit: cover; }
+.polaroid.activa { z-index: 100; transform: translate(0,0) scale(3) rotate(0deg) !important; box-shadow: 0 0 30px #ff00ff; }
+
 .chispa {
-    position: fixed; width: 4px; height: 4px; background: #ff00ff;
-    border-radius: 50%; pointer-events: none; z-index: 1000; box-shadow: 0 0 8px #ff00ff;
+    position: fixed; width: 5px; height: 5px; background: #ff00ff;
+    border-radius: 50%; pointer-events: none; z-index: 10000;
+    transition: all 0.6s ease-out;
 }
