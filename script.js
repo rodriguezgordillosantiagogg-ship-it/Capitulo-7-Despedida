@@ -5,30 +5,18 @@ const footer = document.getElementById('footerTexto');
 const solContenedor = document.getElementById('solFinal');
 const pixelShowerContainer = document.getElementById('pixel-shower-container');
 
-// Función corregida para generar píxeles
 function crearPixel() {
     const p = document.createElement('div');
     p.classList.add('pixel-caida');
-    
-    // Posición horizontal aleatoria
     p.style.left = Math.random() * 100 + 'vw';
-    
-    // Tamaños variados (4px, 6px u 8px)
     const sizes = [4, 6, 8];
     const s = sizes[Math.floor(Math.random() * sizes.length)] + 'px';
     p.style.width = s; 
     p.style.height = s;
-    
-    // Duración aleatoria de la caída (entre 3s y 6s)
     const dur = Math.random() * 3 + 3 + 's';
     p.style.animationDuration = `${dur}, ${Math.random() * 0.5 + 0.3}s`;
-    
     pixelShowerContainer.appendChild(p);
-    
-    // Eliminar el elemento después de que termine la animación
-    setTimeout(() => {
-        p.remove();
-    }, parseFloat(dur) * 1000);
+    setTimeout(() => { p.remove(); }, parseFloat(dur) * 1000);
 }
 
 function dispararExplosion() {
@@ -71,17 +59,9 @@ video.ontimeupdate = function() {
 async function iniciarTodo() {
     pantalla.style.display = 'none';
     contenido.style.display = 'flex';
-    
     video.load();
     video.volume = 1.0;
-    
-    try { 
-        await video.play(); 
-    } catch (e) { 
-        video.play(); 
-    }
-    
-    // Iniciar la lluvia de píxeles (uno cada 150ms)
+    try { await video.play(); } catch (e) { video.play(); }
     setInterval(crearPixel, 150);
 }
 
