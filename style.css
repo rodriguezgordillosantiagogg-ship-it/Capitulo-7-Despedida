@@ -1,53 +1,53 @@
+/* RESET Y FONDO MAGENTA PROFUNDO */
 * { box-sizing: border-box; }
 body, html {
     margin: 0; padding: 0; width: 100%; height: 100%;
-    background-color: #2a001a !important; /* Nuevo Fondo Fucsia Suavizado (Magenta Profundo) */
+    background-color: #2a001a !important; /* El color de tu imagen suavizado */
     display: flex; justify-content: center; align-items: center;
     overflow: hidden; font-family: 'Arial Black', sans-serif;
 }
 
-/* --- LLUVIA DE ESTRELLAS PARPADEANTES --- */
-#star-shower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+/* --- LLUVIA DE PÍXELES (ESTÉTICA DIGITAL) --- */
+#pixel-shower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-.estrella-caida {
+.pixel-caida {
     position: absolute;
     background: white;
-    border-radius: 50%;
-    opacity: 0.7;
+    opacity: 0.8;
     pointer-events: none;
-    /* Movimiento de caída suave */
-    animation: caer linear infinite, parpadear 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 5px white) drop-shadow(0 0 10px #fff);
+    animation: caerVertical linear infinite, parpadeoGlitch 2s step-end infinite;
+    filter: drop-shadow(0 0 5px #ff00ff);
 }
 
-@keyframes caer {
-    0% { transform: translateY(-10vh) translateX(0); }
-    100% { transform: translateY(110vh) translateX(50px); } /* Caída diagonal suave */
+@keyframes caerVertical {
+    0% { transform: translateY(-10vh); }
+    100% { transform: translateY(110vh); }
 }
 
-@keyframes parpadear {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 0.9; transform: scale(1.1); }
+@keyframes parpadeoGlitch {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(0.5); }
 }
 
-/* --- Pantalla Inicio --- */
+/* --- PANTALLA INICIAL --- */
 .pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #3a002a 0%, #2a001a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
-.titulo-entrada { font-size: 3.5rem; letter-spacing: 5px; color: white !important; text-shadow: 0 0 20px #ff00ff; margin: 0; }
+.titulo-entrada { font-size: 3.5rem; letter-spacing: 5px; color: white; text-shadow: 0 0 20px #ff00ff; margin: 0; }
 .subtitulo-entrada { color: #ff00ff !important; font-size: 1.2rem; letter-spacing: 12px; margin-top: 10px; text-transform: uppercase; }
-.instruccion { display: block; margin-top: 30px; color: white; opacity: 0.6; font-size: 0.7rem; animation: palpitar 2s infinite; }
+.instruccion { display: block; margin-top: 30px; color: white; opacity: 0.6; font-size: 0.7rem; text-align: center; animation: palpitar 2s infinite; }
 @keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
-/* --- Contenido Principal --- */
+/* --- CONTENIDO Y VIDEO --- */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
-#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 12px; box-shadow: 0 0 40px rgba(255, 0, 255, 0.4); border: 2px solid rgba(255, 0, 255, 0.3); transition: opacity 3s ease; }
+#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 12px; box-shadow: 0 0 40px rgba(255, 0, 255, 0.4); border: 2px solid rgba(255, 0, 255, 0.2); transition: opacity 3s ease; }
 
-/* Texto Final y Supernova */
+/* TÍTULO INFERIOR Y ANIMACIÓN AL CENTRO */
 .footer-texto-doble { text-align: center; margin-top: 25px; transition: transform 4s ease-out; position: relative; z-index: 15; }
 .footer-titulo { color: white !important; font-size: 2rem; margin: 0; text-shadow: 0 0 15px white; }
-.footer-subtitulo { color: #ff00ff !important; font-size: 1rem; letter-spacing: 8px; margin: 0; text-shadow: 0 0 10px #ff00ff; }
+.footer-subtitulo { color: #ff00ff !important; font-size: 1rem; letter-spacing: 8px; margin: 0; }
 
 .al-centro { transform: translateY(-40vh) scale(1.3); }
 
+/* SUPERNOVA (EFECTO FINAL DEL TÍTULO) */
 .supernova { animation: flash 2.5s forwards ease-in-out; }
 @keyframes flash {
     0% { transform: translateY(-40vh) scale(1.3); opacity: 1; filter: blur(0); }
@@ -55,38 +55,29 @@ body, html {
     100% { transform: translateY(-40vh) scale(3); opacity: 0; filter: blur(20px); }
 }
 
-/* --- SOL FINAL CSS --- */
+/* --- SOL FINAL (REEMPLAZANDO GALAXIA) --- */
 #solFinal {
     position: fixed; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 150px; height: 150px;
+    width: 200px; height: 200px;
     opacity: 0; visibility: hidden;
     transition: opacity 5s ease;
     z-index: 5;
     display: flex; justify-content: center; align-items: center;
 }
-
-.centro-sol {
-    width: 60px; height: 60px;
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 0 40px white, 0 0 80px #fff;
-}
-
-/* Rayos del sol con gradiente */
+.centro-sol { width: 80px; height: 80px; background: white; border-radius: 50%; box-shadow: 0 0 50px white, 0 0 100px #fff; }
 .rayos {
-    position: absolute; width: 140px; height: 140px;
-    background: repeating-conic-gradient(from 0deg, white 0deg 10deg, transparent 10deg 30deg);
+    position: absolute; width: 180px; height: 180px;
+    background: repeating-conic-gradient(from 0deg, white 0deg 15deg, transparent 15deg 30deg);
     border-radius: 50%;
     mask-image: radial-gradient(circle, transparent 35%, black 40%);
     -webkit-mask-image: radial-gradient(circle, transparent 35%, black 40%);
 }
-
-#solFinal.mostrar-sol { opacity: 1; visibility: visible; animation: rotarSol 30s linear infinite; }
+#solFinal.mostrar-sol { opacity: 1; visibility: visible; animation: rotarSol 40s linear infinite; }
 @keyframes rotarSol { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-/* Chispas de la explosion */
-.estrella-sparkle { position: fixed; width: 12px; height: 12px; z-index: 20; opacity: 0; pointer-events: none; }
-.estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 8px white; }
-.estrella-sparkle::before { width: 100%; height: 1.5px; top: 50%; left: 0; }
-.estrella-sparkle::after { width: 1.5px; height: 100%; left: 50%; top: 0; }
+/* CHISPAS DE LA EXPLOSIÓN */
+.estrella-sparkle { position: fixed; width: 15px; height: 15px; z-index: 20; opacity: 0; pointer-events: none; }
+.estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 10px white; }
+.estrella-sparkle::before { width: 100%; height: 2px; top: 50%; left: 0; }
+.estrella-sparkle::after { width: 2px; height: 100%; left: 50%; top: 0; }
