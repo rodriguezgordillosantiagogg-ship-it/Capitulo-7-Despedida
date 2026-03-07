@@ -1,85 +1,77 @@
 * { box-sizing: border-box; }
 body, html {
     margin: 0; padding: 0; width: 100%; height: 100%;
-    background-color: #0d001a !important;
+    background-color: #05000a !important;
     display: flex; justify-content: center; align-items: center;
-    overflow: hidden; font-family: 'Times New Roman', serif;
+    overflow: hidden; font-family: 'Arial Black', sans-serif;
 }
 
-/* Pétalos */
-.petalo { position: absolute; background-color: #ffb7c5; border-radius: 150% 0 150% 0; opacity: 0.6; pointer-events: none; z-index: 5; animation: caer linear infinite; }
-@keyframes caer { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg) translateX(80px); } }
+/* Partículas moradas cayendo */
+.petalo { position: absolute; background-color: #a855f7; border-radius: 50%; opacity: 0.5; pointer-events: none; z-index: 5; animation: caer linear infinite; }
+@keyframes caer { 0% { transform: translateY(-10vh); } 100% { transform: translateY(110vh) translateX(50px); } }
 
-/* Inicio */
-.pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #1a0033 0%, #0d001a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
-.texto-entrada { text-align: center; }
-.titulo-entrada { font-size: clamp(2rem, 8vw, 5rem); letter-spacing: 10px; margin: 0; font-weight: 100; color: white !important; }
-.subtitulo-entrada { color: #ffb7c5 !important; letter-spacing: 6px; margin-top: 10px; font-size: 1rem; text-transform: uppercase; }
-.instruccion { display: block; margin-top: 40px; font-size: 0.8rem; color: white; opacity: 0.5; animation: palpitar 2s infinite; }
+/* Pantalla Inicio */
+.pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #1a0033 0%, #05000a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+.titulo-entrada { font-size: 3.5rem; letter-spacing: 5px; color: white !important; text-shadow: 0 0 20px #a855f7; margin: 0; }
+.subtitulo-entrada { color: #a855f7 !important; font-size: 1.2rem; letter-spacing: 10px; margin-top: 10px; text-transform: uppercase; }
+.instruccion { display: block; margin-top: 20px; color: white; opacity: 0.6; font-size: 0.7rem; animation: palpitar 2s infinite; }
 @keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
-/* Contenido Principal */
+/* Video */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
-#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 15px; box-shadow: 0 0 40px rgba(138, 43, 226, 0.4); border: 1px solid rgba(255, 183, 197, 0.2); transition: opacity 4s ease; background: black; }
+#miVideo { height: 65vh; width: auto; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 50px rgba(168, 85, 247, 0.4); border: 2px solid rgba(168, 85, 247, 0.3); transition: opacity 3s ease; background: black; }
 
-/* Texto Final y Sincronización */
-.footer-texto-doble {
-    text-align: center; margin-top: 20px;
-    /* Transición suave para subir */
-    transition: transform 4s cubic-bezier(0.2, 0, 0.2, 1), opacity 1s ease-in-out;
-    position: relative; z-index: 15;
-}
-.footer-titulo { 
-    color: white !important; /* BLANCO */
-    font-size: 1.6rem; letter-spacing: 8px; font-weight: 100; margin: 0;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-}
-.footer-subtitulo { 
-    color: #ffb7c5 !important; /* ROSADO */
-    font-size: 0.9rem; letter-spacing: 5px; margin: 5px 0 0 0; text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 183, 197, 0.5);
+/* Texto Final y Supernova */
+.footer-texto-doble { text-align: center; margin-top: 25px; transition: transform 4s ease-out; position: relative; z-index: 15; }
+.footer-titulo { color: white !important; font-size: 2rem; margin: 0; text-shadow: 0 0 15px white; }
+.footer-subtitulo { color: #a855f7 !important; font-size: 1rem; letter-spacing: 8px; margin: 0; text-shadow: 0 0 10px #a855f7; }
+
+.al-centro { transform: translateY(-40vh) scale(1.3); }
+
+.supernova { animation: flash 2s forwards ease-in-out; }
+@keyframes flash {
+    0% { transform: translateY(-40vh) scale(1.3); opacity: 1; filter: blur(0px); }
+    50% { transform: translateY(-40vh) scale(1.8); opacity: 1; filter: blur(2px); text-shadow: 0 0 60px white, 0 0 100px #a855f7; }
+    100% { transform: translateY(-40vh) scale(2.5); opacity: 0; filter: blur(20px); }
 }
 
-/* PASO 1: Subir al centro (brillo normal) */
-.al-centro { transform: translateY(-40vh) scale(1.2); }
-
-/* PASO 2: EL DESTELLO DE SUPERNOVA (Brillo cegador) */
-.supernova {
-    animation: supernova-flash 2s forwards ease-in-out;
-}
-
-@keyframes supernova-flash {
-    0% { transform: translateY(-40vh) scale(1.2); opacity: 1; filter: blur(0px); }
-    50% { 
-        transform: translateY(-40vh) scale(1.5); /* Crece */
-        opacity: 1; 
-        filter: blur(2px); /* Un poco de blur para el halo de luz */
-        color: white !important; /* Todo se vuelve blanco */
-        text-shadow: 0 0 50px white, 0 0 100px white, 0 0 150px white; /* Brillo cegador */
-    }
-    100% { 
-        transform: translateY(-40vh) scale(2); /* Estalla */
-        opacity: 0; 
-        filter: blur(20px); 
-    }
-}
-
-/* Estrellas y Luna (igual que antes) */
+/* Estrellas Sparkle */
 .estrella-sparkle { position: fixed; width: 15px; height: 15px; z-index: 20; opacity: 0; pointer-events: none; }
 .estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 10px white; border-radius: 50%; }
 .estrella-sparkle::before { width: 100%; height: 2px; top: 50%; left: 0; transform: translateY(-50%); }
 .estrella-sparkle::after { width: 2px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
-@keyframes parpadeo { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
 
-#lunaCreciente {
+@keyframes blink { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.2; scale: 0.5; } }
+
+/* --- ESTILOS PARA LA GALAXIA FINAL (IMAGEN) --- */
+#galaxiaFinalContenedor {
     position: fixed; top: 50%; left: 50%;
-    width: 100px; height: 100px;
-    background-color: transparent; border-radius: 50%;
-    box-shadow: -25px 15px 0 0 white;
-    transform: translate(-20%, -60%) rotate(-15deg);
+    transform: translate(-50%, -50%);
+    /* Ajustamos tamaño para que cubra la pantalla sin ser excesiva */
+    width: 90vw; 
+    max-width: 800px;
+    height: auto;
     opacity: 0; visibility: hidden;
-    filter: drop-shadow(0 0 15px white);
+    /* Añadimos un resplandor cósmico */
+    filter: drop-shadow(0 0 30px #a855f7) drop-shadow(0 0 60px rgba(138, 43, 226, 0.4)); 
     transition: opacity 5s ease-in-out;
-    z-index: 5;
+    z-index: 5; /* Detrás de las chispas de la explosión */
 }
-#lunaCreciente.mostrar-luna { opacity: 1; visibility: visible; }
+
+#galaxiaImagen {
+    width: 100%;
+    height: auto;
+    border-radius: 50%; /* Opcional, para suavizar bordes */
+}
+
+/* Animación de rotación lenta */
+@keyframes rotarGalaxia {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+#galaxiaFinalContenedor.mostrar-galaxia { 
+    opacity: 1; 
+    visibility: visible; 
+    animation: rotarGalaxia 25s linear infinite; 
+}
