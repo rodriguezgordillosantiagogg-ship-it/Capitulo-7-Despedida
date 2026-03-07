@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Teko:wght@300;600&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS INTEGRADO PARA EVITAR ERRORES DE CARGA */
+        /* --- ESTILOS BASE --- */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body, html {
@@ -18,7 +18,7 @@
             color: white;
         }
 
-        /* PÍXELES LENTOS (TIPO HOJA) DETRÁS */
+        /* --- PÍXELES LENTOS (EFECTO HOJA) --- */
         #pixel-shower-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
@@ -28,15 +28,16 @@
             position: absolute; background: white; 
             width: 6px; height: 6px; border-radius: 50%;
             opacity: 0.8; box-shadow: 0 0 12px #ff00ff;
-            animation: oscilar 4s infinite ease-in-out;
+            /* El vaivén lateral */
+            animation: oscilar 5s infinite ease-in-out;
         }
 
         @keyframes oscilar {
-            0%, 100% { margin-left: 0px; }
-            50% { margin-left: 50px; }
+            0%, 100% { margin-left: -20px; }
+            50% { margin-left: 20px; }
         }
 
-        /* PANTALLA INICIAL */
+        /* --- PANTALLA INICIAL --- */
         .pantalla-inicio { 
             position: fixed; top: 0; left: 0; z-index: 100; 
             width: 100%; height: 100%; background: black;
@@ -49,7 +50,7 @@
 
         @keyframes fadeBlink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
 
-        /* CONTENIDO PRINCIPAL */
+        /* --- CONTENIDO PRINCIPAL --- */
         .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; position: relative; }
         
         #miVideo { 
@@ -64,7 +65,7 @@
         
         .al-centro { transform: translateY(-35vh) scale(1.1); }
 
-        /* SOL ICONOGRÁFICO DEFINITIVO */
+        /* --- SOL CON LÍNEAS RECTAS CORTAS --- */
         #solFinal {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 300px; height: 300px; opacity: 0; visibility: hidden; transition: 3s;
@@ -73,7 +74,9 @@
         #solFinal.mostrar-sol { opacity: 1; visibility: visible; }
 
         .sol-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 20px #ff00ff); }
-        .grupo-sol { transform-origin: center; animation: rotarSol 30s linear infinite; }
+        
+        /* Animación de rotación lenta */
+        .grupo-sol { transform-origin: center; animation: rotarSol 50s linear infinite; }
         
         @keyframes rotarSol { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
@@ -101,63 +104,4 @@
             <p class="footer-subtitulo">BPM</p>
         </div>
 
-        <div id="solFinal">
-            <svg viewBox="0 0 100 100" class="sol-svg">
-                <g class="grupo-sol">
-                    <path fill="white" d="M50,15 Q55,5 60,15 T70,15 M85,50 Q95,55 85,60 T85,70 M50,85 Q45,95 40,85 T30,85 M15,50 Q5,45 15,40 T15,30 M78,25 Q85,18 78,31 T70,38 M78,75 Q85,82 72,75 T65,67 M22,75 Q15,82 28,75 T35,67 M22,25 Q15,18 22,31 T30,38" />
-                    <circle cx="50" cy="50" r="18" fill="white" />
-                </g>
-            </svg>
-        </div>
-    </div>
-
-    <script>
-        const pantalla = document.getElementById('pantallaInicio');
-        const contenido = document.getElementById('contenidoPrincipal');
-        const video = document.getElementById('miVideo');
-        const footer = document.getElementById('footerTexto');
-        const solContenedor = document.getElementById('solFinal');
-        const pixelShowerContainer = document.getElementById('pixel-shower-container');
-
-        function crearPixel() {
-            const p = document.createElement('div');
-            p.className = 'pixel-caida';
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.top = '-5vh';
-            
-            const duracion = Math.random() * 4000 + 6000; // Muy lento (6-10s)
-            p.style.animationDuration = (Math.random() * 2 + 2) + 's'; // Vaivén
-            
-            pixelShowerContainer.appendChild(p);
-            
-            const anim = p.animate([
-                { transform: 'translateY(0)', opacity: 0.9 },
-                { transform: 'translateY(115vh)', opacity: 0 }
-            ], { duration: duracion, easing: 'linear' });
-
-            anim.onfinish = () => p.remove();
-        }
-
-        function iniciarTodo() {
-            pantalla.style.display = 'none';
-            contenido.style.display = 'flex';
-            video.play();
-            setInterval(crearPixel, 150);
-        }
-
-        video.onended = function() {
-            video.style.opacity = "0";
-            setTimeout(() => {
-                footer.classList.add('al-centro');
-                setTimeout(() => {
-                    footer.style.opacity = "0";
-                    setTimeout(() => {
-                        footer.style.display = 'none';
-                        solContenedor.classList.add('mostrar-sol');
-                    }, 1500);
-                }, 5000);
-            }, 1000);
-        };
-    </script>
-</body>
-</html>
+        <div
