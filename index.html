@@ -3,105 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LIT KILLAH - BPM</title>
+    <title>LIT KILLAH - BPM Experience</title>
+    <link rel="stylesheet" href="style.css?v=12">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Teko:wght@300;600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- ESTILOS BASE --- */
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: #000000 !important; 
-            overflow: hidden; font-family: 'Montserrat', sans-serif;
-            color: white;
-        }
-
-        /* --- PÍXELES LENTOS (EFECTO HOJA) --- */
-        #pixel-shower-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-        }
-
-        .pixel-caida {
-            position: absolute; background: white; 
-            width: 6px; height: 6px; border-radius: 50%;
-            opacity: 0.8; box-shadow: 0 0 12px #ff00ff;
-            /* El vaivén lateral */
-            animation: oscilar 5s infinite ease-in-out;
-        }
-
-        @keyframes oscilar {
-            0%, 100% { margin-left: -20px; }
-            50% { margin-left: 20px; }
-        }
-
-        /* --- PANTALLA INICIAL --- */
-        .pantalla-inicio { 
-            position: fixed; top: 0; left: 0; z-index: 100; 
-            width: 100%; height: 100%; background: black;
-            display: flex; justify-content: center; align-items: center; cursor: pointer; 
-        }
-        .contenedor-texto { text-align: center; }
-        .titulo-entrada { font-weight: 900; font-size: 3.5rem; color: white !important; margin: 0; }
-        .subtitulo-entrada { font-family: 'Teko'; color: #ff00ff !important; font-size: 2rem; letter-spacing: 20px; margin: 0; text-transform: uppercase; }
-        .instruccion { color: white !important; font-family: 'Teko'; letter-spacing: 4px; animation: fadeBlink 2.5s infinite; }
-
-        @keyframes fadeBlink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
-
-        /* --- CONTENIDO PRINCIPAL --- */
-        .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; position: relative; }
-        
-        #miVideo { 
-            height: 55vh; width: auto; max-width: 90%; 
-            border-radius: 5px; z-index: 20; position: relative; 
-            background: black;
-        }
-
-        .footer-texto-doble { text-align: center; margin-top: 30px; z-index: 20; transition: transform 4s ease-out; }
-        .footer-titulo { font-weight: 900; font-size: 2.2rem; color: white !important; margin: 0; }
-        .footer-subtitulo { font-family: 'Teko'; color: #ff00ff !important; font-size: 1.4rem; letter-spacing: 12px; margin: 0; }
-        
-        .al-centro { transform: translateY(-35vh) scale(1.1); }
-
-        /* --- SOL CON LÍNEAS RECTAS CORTAS --- */
-        #solFinal {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 300px; height: 300px; opacity: 0; visibility: hidden; transition: 3s;
-            z-index: 30;
-        }
-        #solFinal.mostrar-sol { opacity: 1; visibility: visible; }
-
-        .sol-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 20px #ff00ff); }
-        
-        /* Animación de rotación lenta */
-        .grupo-sol { transform-origin: center; animation: rotarSol 50s linear infinite; }
-        
-        @keyframes rotarSol { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Teko:wght@300;400&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #2a001a;">
 
     <div id="pixel-shower-container"></div>
     
-    <div class="pantalla-inicio" id="pantallaInicio" onclick="iniciarTodo()">
-        <div class="contenedor-texto">
+    <div class="pantalla-inicio" id="pantallaInicio">
+        <div class="texto-entrada">
             <h1 class="titulo-entrada">LIT KILLAH</h1>
             <p class="subtitulo-entrada">BPM</p>
-            <br>
-            <span class="instruccion">toca para iniciar</span>
+            <span class="instruccion">( toca para iniciar )</span>
         </div>
     </div>
 
     <div class="contenido" id="contenidoPrincipal">
-        <video id="miVideo" playsinline>
-            <source src="video.mp4" type="video/mp4">
-        </video>
+        <div class="video-wrapper">
+            <video id="miVideo" playsinline preload="auto">
+                <source src="video.mp4" type="video/mp4">
+            </video>
+        </div>
         
         <div class="footer-texto-doble" id="footerTexto">
             <h2 class="footer-titulo">LIT KILLAH</h2>
             <p class="footer-subtitulo">BPM</p>
         </div>
+        
+        <div id="solFinal">
+            <div class="centro-sol"></div>
+            <div class="rayos"></div>
+        </div>
+    </div>
 
-        <div
+    <script src="script.js?v=12"></script>
+</body>
+</html>
