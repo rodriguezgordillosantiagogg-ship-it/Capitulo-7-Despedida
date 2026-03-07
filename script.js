@@ -49,46 +49,54 @@ function dispararExplosion() {
 video.onended = function() {
     video.style.opacity = "0";
     
-    // 1. Sube el texto
-    setTimeout(() => footer.classList.add('al-centro'), 1000);
+    // Iniciar desvanecimiento de música (Fade Out)
+    const fadeOutAudio = setInterval(() => {
+        if (audio.volume > 0.05) {
+            audio.volume -= 0.05; // Baja 5% cada 200ms
+        } else {
+            audio.pause();
+            audio.volume = 0;
+            clearInterval(fadeOutAudio);
+        }
+    }, 200);
 
-    // 2. Destello Supernova
+    // Texto sube
+    setTimeout(() => footer.classList.add('al-centro'), 800);
+
+    // Destello Supernova
     setTimeout(() => {
         footer.classList.add('supernova');
-        const fadeAudio = setInterval(() => {
-            if (audio.volume > 0.1) audio.volume -= 0.1;
-            else { audio.pause(); clearInterval(fadeAudio); }
-        }, 250);
-    }, 5500);
+    }, 5000);
 
-    // 3. LA EXPLOSIÓN Y EL NACIMIENTO
+    // Explosión y Galaxia
     setTimeout(() => {
         footer.style.display = 'none';
         dispararExplosion();
-        
-        // Aparece la Galaxia
         setTimeout(() => {
             galaxiaContenedor.classList.add('mostrar-galaxia');
-            // Aparece el texto final
             mensajeFinal.classList.add('mostrar-mensaje');
         }, 500);
-        
-    }, 8000);
-
-    setTimeout(() => video.style.visibility = "hidden", 6000);
+    }, 7500);
 };
 
 async function iniciarTodo() {
     pantalla.style.display = 'none';
     contenido.style.display = 'flex';
-    generarGalaxia(); // Pre-generamos la galaxia en silencio
+    generarGalaxia();
+    
     video.load();
-    video.muted = true;
+    video.muted = true; // Silenciamos video para que no se duplique con el audio
+    
     try {
         await video.play();
-        setTimeout(() => video.muted = false, 400);
-    } catch (e) { video.play(); }
-    audio.play();
+        audio.volume = 1.0; 
+        audio.play();
+    } catch (e) { 
+        video.play();
+        audio.play();
+    }
+
+    // Partículas de fondo
     setInterval(() => {
         const p = document.createElement('div');
         p.classList.add('petalo');
