@@ -5,7 +5,7 @@ const footer = document.getElementById('footerTexto');
 const solContenedor = document.getElementById('solFinal');
 const pixelContainer = document.getElementById('pixel-container');
 
-// Crear la lluvia de píxeles
+// Función para crear píxeles grandes y frecuentes
 function crearPixel() {
     const p = document.createElement('div');
     p.className = 'pixel-caida';
@@ -13,16 +13,16 @@ function crearPixel() {
     p.style.top = '-5vh';
     pixelContainer.appendChild(p);
 
-    const duracion = Math.random() * 3000 + 2500;
+    const duracion = Math.random() * 2500 + 2000; // Velocidad de caída
     const anim = p.animate([
-        { transform: 'translateY(0)', opacity: 0.6 },
+        { transform: 'translateY(0)', opacity: 0.8 },
         { transform: 'translateY(110vh)', opacity: 0 }
     ], { duration: duracion, easing: 'linear' });
 
     anim.onfinish = () => p.remove();
 }
 
-// Iniciar Experiencia
+// Iniciar Experiencia al tocar
 function iniciarTodo() {
     if (pantalla.style.display === 'none') return;
     
@@ -31,18 +31,17 @@ function iniciarTodo() {
         pantalla.style.display = 'none';
         contenido.style.display = 'flex';
         
-        video.play().catch(e => console.log("Error play:", e));
+        video.play().catch(e => console.log("Error de reproducción:", e));
         
-        // Iniciar lluvia constante
-        setInterval(crearPixel, 180);
+        // LLUVIA MUCHO MÁS DENSA (Se crea un píxel cada 100ms)
+        setInterval(crearPixel, 100); 
     }, 800);
 }
 
-// Eventos de entrada
 pantalla.onclick = iniciarTodo;
 pantalla.ontouchstart = iniciarTodo;
 
-// Manejo del final
+// Transición al finalizar el video
 video.onended = function() {
     video.style.opacity = "0";
     
