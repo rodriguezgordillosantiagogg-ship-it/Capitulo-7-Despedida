@@ -3,50 +3,60 @@ const contenido = document.getElementById('contenidoPrincipal');
 const video = document.getElementById('miVideo');
 const footer = document.getElementById('footerTexto');
 const solContenedor = document.getElementById('solFinal');
+const pixelContainer = document.getElementById('pixel-container');
 
-function crearChispa(x, y) {
-    for(let i=0; i<6; i++) {
-        const c = document.createElement('div');
-        c.className = 'chispa';
-        c.style.left = x + 'px'; c.style.top = y + 'px';
-        document.body.appendChild(c);
-        const mx = (Math.random() - 0.5) * 150;
-        const my = (Math.random() - 0.5) * 150;
-        setTimeout(() => {
-            c.style.transform = `translate(${mx}px, ${my}px) scale(0)`;
-            c.style.opacity = '0';
-        }, 10);
-        setTimeout(() => c.remove(), 700);
-    }
+// Crear la lluvia de píxeles
+function crearPixel() {
+    const p = document.createElement('div');
+    p.className = 'pixel-caida';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.top = '-5vh';
+    pixelContainer.appendChild(p);
+
+    const duracion = Math.random() * 3000 + 2500;
+    const anim = p.animate([
+        { transform: 'translateY(0)', opacity: 0.6 },
+        { transform: 'translateY(110vh)', opacity: 0 }
+    ], { duration: duracion, easing: 'linear' });
+
+    anim.onfinish = () => p.remove();
 }
 
-function iniciarTodo(e) {
+// Iniciar Experiencia
+function iniciarTodo() {
     if (pantalla.style.display === 'none') return;
-    const x = e.pageX || (e.touches ? e.touches[0].pageX : 0);
-    const y = e.pageY || (e.touches ? e.touches[0].pageY : 0);
-    crearChispa(x, y);
-
+    
     pantalla.style.opacity = "0";
     setTimeout(() => {
         pantalla.style.display = 'none';
         contenido.style.display = 'flex';
-        video.play();
+        
+        video.play().catch(e => console.log("Error play:", e));
+        
+        // Iniciar lluvia constante
+        setInterval(crearPixel, 180);
     }, 800);
 }
 
+// Eventos de entrada
 pantalla.onclick = iniciarTodo;
 pantalla.ontouchstart = iniciarTodo;
 
+// Manejo del final
 video.onended = function() {
     video.style.opacity = "0";
+    
     setTimeout(() => {
         footer.classList.add('al-centro');
     }, 1000);
+    
     setTimeout(() => {
         footer.style.opacity = "0";
+        footer.style.filter = "blur(15px)";
+        
         setTimeout(() => {
             footer.style.display = 'none';
             solContenedor.classList.add('mostrar-sol');
         }, 1500);
-    }, 6000);
+    }, 5500);
 };
