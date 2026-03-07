@@ -6,10 +6,13 @@
     <title>LIT KILLAH - BPM</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Teko:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Teko:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="pixel-container"></div>
+    <div class="eclipse-glow"></div>
+
+    <div id="pixel-shower-container"></div>
     
     <div class="pantalla-inicio" id="pantallaInicio">
         <div class="content-wrapper">
@@ -26,32 +29,13 @@
                 <source src="video.mp4" type="video/mp4">
             </video>
         </div>
-        
         <div class="footer-texto-doble" id="footerTexto">
             <h2 class="footer-titulo">LIT KILLAH</h2>
             <p class="footer-subtitulo">BPM</p>
         </div>
-        
         <div id="solFinal">
-            <svg viewBox="0 0 100 100" class="sol-svg">
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-                <g class="rayos-ondulados" fill="white" filter="url(#glow)">
-                    <path d="M50,15 Q55,5 60,15 T70,15 M85,50 Q95,55 85,60 T85,70 M50,85 Q45,95 40,85 T30,85 M15,50 Q5,45 15,40 T15,30" transform="rotate(0 50 50)"/>
-                    <path d="M50,15 Q55,5 60,15 T70,15 T80,15" transform="rotate(45 50 50)"/>
-                    <path d="M50,15 Q55,5 60,15 T70,15 T80,15" transform="rotate(90 50 50)"/>
-                    <path d="M50,15 Q55,5 60,15 T70,15 T80,15" transform="rotate(135 50 50)"/>
-                    <path d="M50,15 Q55,5 60,15 T70,15 T80,15" transform="rotate(180 50 50)"/>
-                    <path d="M50,15 Q55,5 60,15 T70,15 T80,15" transform="rotate(225 50 50)"/>
-                    <path d="M50,15 Q55,5 60,15 T70,15 T80,15" transform="rotate(270 50 50)"/>
-                    <path d="M50,15 Q55,5 60,15 T70,15 T80,15" transform="rotate(315 50 50)"/>
-                </g>
-                <circle cx="50" cy="50" r="18" fill="white" filter="url(#glow)"/>
-            </svg>
+            <div class="centro-sol"></div>
+            <div class="rayos"></div>
         </div>
     </div>
 
