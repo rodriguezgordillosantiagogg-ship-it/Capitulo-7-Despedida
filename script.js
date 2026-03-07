@@ -3,48 +3,50 @@ const contenido = document.getElementById('contenidoPrincipal');
 const video = document.getElementById('miVideo');
 const footer = document.getElementById('footerTexto');
 const solContenedor = document.getElementById('solFinal');
-const pixelContainer = document.getElementById('pixel-container');
+const pixelShowerContainer = document.getElementById('pixel-shower-container');
 
 function crearPixel() {
     const p = document.createElement('div');
-    p.className = 'pixel-caida';
+    p.classList.add('pixel-caida');
     p.style.left = Math.random() * 100 + 'vw';
-    p.style.top = '-5vh';
-    pixelContainer.appendChild(p);
-
-    const duracion = Math.random() * 2000 + 1500; // Más rápidos para que se vea más lleno
-    const anim = p.animate([
-        { transform: 'translateY(0)', opacity: 0.9 },
+    const dur = Math.random() * 2 + 3 + 's';
+    
+    // Animación de caída fluida
+    p.animate([
+        { transform: 'translateY(-10vh)', opacity: 0 },
+        { opacity: 0.8, offset: 0.2 },
         { transform: 'translateY(110vh)', opacity: 0 }
-    ], { duration: duracion, easing: 'linear' });
+    ], {
+        duration: parseFloat(dur) * 1000,
+        easing: 'linear'
+    });
 
-    anim.onfinish = () => p.remove();
+    pixelShowerContainer.appendChild(p);
+    setTimeout(() => p.remove(), parseFloat(dur) * 1000);
 }
-
-function iniciarTodo() {
-    if (pantalla.style.display === 'none') return;
-    pantalla.style.opacity = "0";
-    setTimeout(() => {
-        pantalla.style.display = 'none';
-        contenido.style.display = 'flex';
-        video.play().catch(e => console.log(e));
-        
-        // LLUVIA MUY DENSA: cada 80ms para que se llene el fondo
-        setInterval(crearPixel, 80); 
-    }, 800);
-}
-
-pantalla.onclick = iniciarTodo;
-pantalla.ontouchstart = iniciarTodo;
 
 video.onended = function() {
     video.style.opacity = "0";
-    setTimeout(() => { footer.classList.add('al-centro'); }, 1000);
+    setTimeout(() => footer.classList.add('al-centro'), 800);
     setTimeout(() => {
+        footer.style.filter = "blur(20px)";
         footer.style.opacity = "0";
         setTimeout(() => {
             footer.style.display = 'none';
             solContenedor.classList.add('mostrar-sol');
-        }, 1200);
-    }, 5000);
+        }, 2000);
+    }, 6000);
 };
+
+async function iniciarTodo() {
+    pantalla.style.transition = "opacity 1s ease";
+    pantalla.style.opacity = "0";
+    setTimeout(() => {
+        pantalla.style.display = 'none';
+        contenido.style.display = 'flex';
+        video.play();
+        setInterval(crearPixel, 150);
+    }, 1000);
+}
+
+pantalla.addEventListener('click', iniciarTodo);
