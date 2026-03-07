@@ -1,52 +1,107 @@
 * { box-sizing: border-box; }
 body, html {
     margin: 0; padding: 0; width: 100%; height: 100%;
+    /* Tu color fucsia suavizado */
     background-color: #2a001a !important; 
     display: flex; justify-content: center; align-items: center;
-    overflow: hidden; font-family: 'Arial Black', sans-serif;
+    overflow: hidden;
+    /* Fuente por defecto para el cuerpo si falla la principal */
+    font-family: 'Montserrat', sans-serif;
 }
 
+/* --- PARTÍCULAS DE PÍXELES --- */
 #pixel-shower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-
 .pixel-caida {
-    position: absolute; background: white; opacity: 0.8; pointer-events: none; 
-    animation: caerVertical linear infinite, parpadeoGlitch 2s step-end infinite;
+    position: absolute; background: white; width: 5px; height: 5px;
+    opacity: 0.8; pointer-events: none; animation: caerVertical linear infinite, parpadeoGlitch 2s step-end infinite;
     filter: drop-shadow(0 0 5px #ff00ff);
 }
-
 @keyframes caerVertical { 0% { transform: translateY(-10vh); } 100% { transform: translateY(110vh); } }
 @keyframes parpadeoGlitch { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.2; } }
 
+/* --- PANTALLA INICIAL (Aesthetic Celular) --- */
 .pantalla-inicio { 
     position: fixed; top: 0; left: 0; z-index: 100; 
     background: radial-gradient(circle, #3a002a 0%, #2a001a 100%); 
-    width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; 
+    width: 100%; height: 100%; display: flex; justify-content: center; 
+    align-items: center; cursor: pointer; 
 }
 
-.titulo-entrada { font-size: 3rem; color: white; text-shadow: 0 0 20px #ff00ff; margin: 0; text-align: center; }
-.subtitulo-entrada { color: #ff00ff !important; font-size: 1.5rem; letter-spacing: 10px; margin-top: 5px; text-align: center; }
+/* Título Grande: Montserrat ultra-gruesa */
+.titulo-entrada {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 2.8rem; /* Ajustado para celular */
+    color: white; 
+    text-shadow: 0 0 20px #ff00ff; 
+    margin: 0; text-align: center;
+    line-height: 1;
+}
 
+/* Subtítulo: Teko condensada */
+.subtitulo-entrada {
+    font-family: 'Teko', sans-serif;
+    font-weight: 300;
+    color: #ff00ff !important; 
+    font-size: 1.6rem; /* Más grande y Teko */
+    letter-spacing: 12px; /* Letras muy separadas */
+    margin-top: 5px; 
+    text-align: center;
+}
+
+/* Instrucción en blanco: Teko fina */
 .instruccion { 
-    display: block; margin-top: 40px; color: white !important; 
-    opacity: 0.9; font-size: 0.8rem; text-align: center; animation: palpitar 2s infinite; 
+    display: block; 
+    font-family: 'Teko', sans-serif;
+    font-weight: 300;
+    margin-top: 40px; 
+    color: white !important; /* Blanco puro */
+    opacity: 0.9; 
+    font-size: 0.9rem; /* Un poco más grande para leer mejor en celular */
+    text-align: center; 
+    animation: palpitar 2s infinite; 
+    letter-spacing: 1px;
 }
 @keyframes palpitar { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
+/* --- CONTENIDO Y VIDEO (Optimizado Celular) --- */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
-#miVideo { height: 55vh; border-radius: 12px; box-shadow: 0 0 40px rgba(255, 0, 255, 0.4); transition: opacity 3s ease; }
+
+/* El video ocupa menos altura en celular para dar espacio al texto */
+#miVideo { height: 50vh; border-radius: 12px; box-shadow: 0 0 40px rgba(255, 0, 255, 0.4); transition: opacity 3s ease; }
 
 .footer-texto-doble { text-align: center; margin-top: 25px; transition: transform 4s ease-out; position: relative; z-index: 15; }
-.footer-titulo { color: white !important; font-size: 2.2rem; margin: 0; text-shadow: 0 0 15px white; }
-.footer-subtitulo { color: #ff00ff !important; font-size: 1.2rem; letter-spacing: 8px; margin: 0; }
-.al-centro { transform: translateY(-35vh) scale(1.2); }
 
-.supernova { animation: flash 2.5s forwards ease-in-out; }
-@keyframes flash {
-    0% { transform: translateY(-35vh) scale(1.2); opacity: 1; }
-    50% { transform: translateY(-35vh) scale(1.7); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #ff00ff; }
-    100% { transform: translateY(-35vh) scale(2.5); opacity: 0; filter: blur(20px); }
+/* Títulos del footer usan las mismas fuentes */
+.footer-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: white !important; 
+    font-size: 2.2rem; 
+    margin: 0; 
+    text-shadow: 0 0 15px white; 
+}
+.footer-subtitulo {
+    font-family: 'Teko', sans-serif;
+    font-weight: 300;
+    color: #ff00ff !important; 
+    font-size: 1.2rem; 
+    letter-spacing: 10px; 
+    margin: 0; 
 }
 
+/* Animación de subida al centro */
+.al-centro { transform: translateY(-35vh) scale(1.15); }
+
+/* --- SUPERNOVA --- */
+.supernova { animation: flash 2.5s forwards ease-in-out; }
+@keyframes flash {
+    0% { transform: translateY(-35vh) scale(1.15); opacity: 1; }
+    50% { transform: translateY(-35vh) scale(1.6); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #ff00ff; }
+    100% { transform: translateY(-35vh) scale(2.2); opacity: 0; filter: blur(20px); }
+}
+
+/* --- SOL FINAL --- */
 #solFinal {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 200px; height: 200px; opacity: 0; visibility: hidden; transition: opacity 5s ease; z-index: 5;
@@ -62,6 +117,7 @@ body, html {
 #solFinal.mostrar-sol { opacity: 1; visibility: visible; animation: rotarSol 40s linear infinite; }
 @keyframes rotarSol { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
+/* Chispas */
 .estrella-sparkle { position: fixed; width: 15px; height: 15px; z-index: 20; opacity: 0; pointer-events: none; }
 .estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; }
 .estrella-sparkle::before { width: 100%; height: 2px; top: 50%; left: 0; }
