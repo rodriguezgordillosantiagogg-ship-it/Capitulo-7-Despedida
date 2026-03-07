@@ -1,83 +1,65 @@
-/* RESET Y FONDO MAGENTA PROFUNDO */
+/* RESET Y FONDO MAGENTA SUAVE */
 * { box-sizing: border-box; }
 body, html {
     margin: 0; padding: 0; width: 100%; height: 100%;
-    background-color: #2a001a !important; /* El color de tu imagen suavizado */
+    background-color: #2a001a !important; 
     display: flex; justify-content: center; align-items: center;
     overflow: hidden; font-family: 'Arial Black', sans-serif;
 }
 
-/* --- LLUVIA DE PÍXELES (ESTÉTICA DIGITAL) --- */
+/* LLUVIA DE PÍXELES */
 #pixel-shower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-
 .pixel-caida {
-    position: absolute;
-    background: white;
-    opacity: 0.8;
-    pointer-events: none;
-    animation: caerVertical linear infinite, parpadeoGlitch 2s step-end infinite;
+    position: absolute; background: white; opacity: 0.8;
+    pointer-events: none; animation: caerVertical linear infinite, parpadeoGlitch 2s step-end infinite;
     filter: drop-shadow(0 0 5px #ff00ff);
 }
+@keyframes caerVertical { 0% { transform: translateY(-10vh); } 100% { transform: translateY(110vh); } }
+@keyframes parpadeoGlitch { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.2; } }
 
-@keyframes caerVertical {
-    0% { transform: translateY(-10vh); }
-    100% { transform: translateY(110vh); }
-}
-
-@keyframes parpadeoGlitch {
-    0%, 100% { opacity: 0.8; transform: scale(1); }
-    50% { opacity: 0.2; transform: scale(0.5); }
-}
-
-/* --- PANTALLA INICIAL --- */
+/* PANTALLA INICIAL */
 .pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #3a002a 0%, #2a001a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
-.titulo-entrada { font-size: 3.5rem; letter-spacing: 5px; color: white; text-shadow: 0 0 20px #ff00ff; margin: 0; }
-.subtitulo-entrada { color: #ff00ff !important; font-size: 1.2rem; letter-spacing: 12px; margin-top: 10px; text-transform: uppercase; }
-.instruccion { display: block; margin-top: 30px; color: white; opacity: 0.6; font-size: 0.7rem; text-align: center; animation: palpitar 2s infinite; }
-@keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+.titulo-entrada { font-size: 3.5rem; color: white; text-shadow: 0 0 20px #ff00ff; margin: 0; }
+.subtitulo-entrada { color: #ff00ff !important; font-size: 1.2rem; letter-spacing: 12px; margin-top: 10px; }
+.instruccion { 
+    display: block; margin-top: 30px; color: white !important; /* BLANCO PURO */
+    opacity: 0.9; font-size: 0.8rem; text-align: center; animation: palpitar 2s infinite; 
+}
+@keyframes palpitar { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-/* --- CONTENIDO Y VIDEO --- */
+/* VIDEO Y TÍTULO */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
-#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 12px; box-shadow: 0 0 40px rgba(255, 0, 255, 0.4); border: 2px solid rgba(255, 0, 255, 0.2); transition: opacity 3s ease; }
-
-/* TÍTULO INFERIOR Y ANIMACIÓN AL CENTRO */
+#miVideo { height: 60vh; border-radius: 12px; box-shadow: 0 0 40px rgba(255, 0, 255, 0.4); transition: opacity 3s ease; }
 .footer-texto-doble { text-align: center; margin-top: 25px; transition: transform 4s ease-out; position: relative; z-index: 15; }
 .footer-titulo { color: white !important; font-size: 2rem; margin: 0; text-shadow: 0 0 15px white; }
 .footer-subtitulo { color: #ff00ff !important; font-size: 1rem; letter-spacing: 8px; margin: 0; }
-
 .al-centro { transform: translateY(-40vh) scale(1.3); }
 
-/* SUPERNOVA (EFECTO FINAL DEL TÍTULO) */
+/* SUPERNOVA */
 .supernova { animation: flash 2.5s forwards ease-in-out; }
 @keyframes flash {
-    0% { transform: translateY(-40vh) scale(1.3); opacity: 1; filter: blur(0); }
-    50% { transform: translateY(-40vh) scale(1.8); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #ff00ff; filter: blur(2px); }
+    0% { transform: translateY(-40vh) scale(1.3); opacity: 1; }
+    50% { transform: translateY(-40vh) scale(1.8); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #ff00ff; }
     100% { transform: translateY(-40vh) scale(3); opacity: 0; filter: blur(20px); }
 }
 
-/* --- SOL FINAL (REEMPLAZANDO GALAXIA) --- */
+/* SOL FINAL */
 #solFinal {
-    position: fixed; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px; height: 200px;
-    opacity: 0; visibility: hidden;
-    transition: opacity 5s ease;
-    z-index: 5;
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 200px; height: 200px; opacity: 0; visibility: hidden; transition: opacity 5s ease; z-index: 5;
     display: flex; justify-content: center; align-items: center;
 }
-.centro-sol { width: 80px; height: 80px; background: white; border-radius: 50%; box-shadow: 0 0 50px white, 0 0 100px #fff; }
+.centro-sol { width: 80px; height: 80px; background: white; border-radius: 50%; box-shadow: 0 0 50px white, 0 0 100px white; }
 .rayos {
     position: absolute; width: 180px; height: 180px;
     background: repeating-conic-gradient(from 0deg, white 0deg 15deg, transparent 15deg 30deg);
-    border-radius: 50%;
-    mask-image: radial-gradient(circle, transparent 35%, black 40%);
+    border-radius: 50%; mask-image: radial-gradient(circle, transparent 35%, black 40%);
     -webkit-mask-image: radial-gradient(circle, transparent 35%, black 40%);
 }
 #solFinal.mostrar-sol { opacity: 1; visibility: visible; animation: rotarSol 40s linear infinite; }
 @keyframes rotarSol { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-/* CHISPAS DE LA EXPLOSIÓN */
 .estrella-sparkle { position: fixed; width: 15px; height: 15px; z-index: 20; opacity: 0; pointer-events: none; }
-.estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 10px white; }
+.estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; }
 .estrella-sparkle::before { width: 100%; height: 2px; top: 50%; left: 0; }
 .estrella-sparkle::after { width: 2px; height: 100%; left: 50%; top: 0; }
