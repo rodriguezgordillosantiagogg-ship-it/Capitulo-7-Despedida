@@ -3,7 +3,34 @@ const contenido = document.getElementById('contenidoPrincipal');
 const video = document.getElementById('miVideo');
 const footer = document.getElementById('footerTexto');
 const galaxiaContenedor = document.getElementById('galaxiaGenerada');
-const mensajeFinal = document.getElementById('mensajeFinal');
+const pixelContainer = document.getElementById('pixel-container');
+
+// --- GENERADOR DE PÍXELES DE VIDEOJUEGO ---
+function crearPixel() {
+    const p = document.createElement('div');
+    p.classList.add('pixel-digital');
+    
+    // Forma cuadrada/bloque
+    const size = Math.random() * 8 + 4 + 'px'; // Entre 4px y 12px
+    p.style.width = size;
+    p.style.height = size;
+    
+    p.style.left = Math.random() * 100 + 'vw';
+    
+    // Movimiento rápido y digital
+    p.style.animationDuration = Math.random() * 1.5 + 2 + 's';
+    
+    // Colores Neón alternados
+    const colores = ['#a855f7', '#3b82f6', '#d8b4fe', '#06b6d4']; // Púrpura, Azul, Lavanda, Cian
+    const color = colores[Math.floor(Math.random() * colores.length)];
+    p.style.backgroundColor = color;
+    p.style.filter = `drop-shadow(0 0 5px ${color}) drop-shadow(0 0 10px ${color})`;
+    
+    if(pixelContainer) pixelContainer.appendChild(p);
+    
+    // Limpieza
+    setTimeout(() => p.remove(), 4000);
+}
 
 function generarGalaxia() {
     const numEstrellas = 300;
@@ -52,14 +79,11 @@ video.onended = function() {
     setTimeout(() => {
         footer.style.display = 'none';
         dispararExplosion();
-        setTimeout(() => {
-            galaxiaContenedor.classList.add('mostrar-galaxia');
-            mensajeFinal.classList.add('mostrar-mensaje');
-        }, 500);
+        setTimeout(() => { galaxiaContenedor.classList.add('mostrar-galaxia'); }, 500);
     }, 7500);
 };
 
-// Desvanecimiento de volumen progresivo al final del video
+// Fade out volumen
 video.ontimeupdate = function() {
     const r = video.duration - video.currentTime;
     if (r < 2 && r > 0) { video.volume = r / 2; }
@@ -70,18 +94,11 @@ async function iniciarTodo() {
     contenido.style.display = 'flex';
     generarGalaxia();
     video.load();
-    video.volume = 1.0; // Solo usamos el volumen del video
+    video.volume = 1.0;
     try { await video.play(); } catch (e) { video.play(); }
-    setInterval(() => {
-        const p = document.createElement('div');
-        p.classList.add('petalo');
-        p.style.left = Math.random() * 100 + 'vw';
-        const s = Math.random() * 4 + 2 + 'px';
-        p.style.width = s; p.style.height = s;
-        p.style.animationDuration = Math.random() * 3 + 4 + 's';
-        document.getElementById('sakura-container').appendChild(p);
-        setTimeout(() => p.remove(), 6000);
-    }, 300);
+    
+    // --- GENERAR PÍXELES CONSTANTEMENTE (Lógica Urbana) ---
+    setInterval(crearPixel, 150); // Crea un pixel cada 150ms
 }
 
 pantalla.addEventListener('click', iniciarTodo);
