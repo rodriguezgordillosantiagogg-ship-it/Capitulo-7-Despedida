@@ -16,19 +16,20 @@ video.onended = function() {
             const contenedorRayos = document.querySelector('.rayos');
             contenedorRayos.innerHTML = ''; // Limpiamos por si acaso
             
-            const totalRayos = 30; // Ajusta este número para más o menos rayos
+            const totalRayos = 40; // Subí a 40 para que se vea más denso el magenta
             
             for (let i = 0; i < totalRayos; i++) {
                 const rayo = document.createElement('div');
                 rayo.classList.add('rayo-linea');
                 
                 const angulo = (360 / totalRayos) * i;
-                // Rotamos y separamos un poco del centro blanco
+                // Rotamos y ajustamos el desplazamiento para el nuevo centro
                 rayo.style.transform = `rotate(${angulo}deg) translateY(-45px)`; 
                 
                 contenedorRayos.appendChild(rayo);
             }
 
+            // Mostrar el sol magenta con sus rayos
             solContenedor.classList.add('mostrar-sol');
             
         }, 2000);
