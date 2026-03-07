@@ -2,54 +2,28 @@ const pantalla = document.getElementById('pantallaInicio');
 const contenido = document.getElementById('contenidoPrincipal');
 const video = document.getElementById('miVideo');
 const footer = document.getElementById('footerTexto');
-const galaxiaContenedor = document.getElementById('galaxiaGenerada');
-const pixelContainer = document.getElementById('pixel-container');
+const solContenedor = document.getElementById('solFinal');
+const starShowerContainer = document.getElementById('star-shower-container');
 
-// --- GENERADOR DE PÍXELES DE VIDEOJUEGO ---
-function crearPixel() {
+// --- GENERADOR DE ESTRELLAS CAÍDAS PARPADEANTES (MAGIA ORIGINAL) ---
+function crearEstrella() {
     const p = document.createElement('div');
-    p.classList.add('pixel-digital');
-    
-    // Forma cuadrada/bloque
-    const size = Math.random() * 8 + 4 + 'px'; // Entre 4px y 12px
-    p.style.width = size;
-    p.style.height = size;
-    
+    p.classList.add('estrella-caida');
     p.style.left = Math.random() * 100 + 'vw';
     
-    // Movimiento rápido y digital
-    p.style.animationDuration = Math.random() * 1.5 + 2 + 's';
+    // Tamaño aleatorio pequeño y parpadeante
+    const size = Math.random() * 6 + 2 + 'px'; // Entre 2px y 8px
+    p.style.width = size; p.style.height = size;
     
-    // Colores Neón alternados
-    const colores = ['#a855f7', '#3b82f6', '#d8b4fe', '#06b6d4']; // Púrpura, Azul, Lavanda, Cian
-    const color = colores[Math.floor(Math.random() * colores.length)];
-    p.style.backgroundColor = color;
-    p.style.filter = `drop-shadow(0 0 5px ${color}) drop-shadow(0 0 10px ${color})`;
+    // Velocidades aleatorias suavemente diagonales
+    const caidaDur = Math.random() * 2 + 5 + 's'; // Caída lenta de 5s a 7s
+    p.style.animationDuration = `${caidaDur}, ${Math.random() * 2 + 2}s`; // Caída y Parpadeo
+    p.style.animationName = 'caer, parpadear'; // Ambos efectos
     
-    if(pixelContainer) pixelContainer.appendChild(p);
+    if(starShowerContainer) starShowerContainer.appendChild(p);
     
     // Limpieza
-    setTimeout(() => p.remove(), 4000);
-}
-
-function generarGalaxia() {
-    const numEstrellas = 300;
-    for (let i = 0; i < numEstrellas; i++) {
-        const estrella = document.createElement('div');
-        estrella.classList.add('estrella-galaxia');
-        const angle = 0.15 * i;
-        const radius = 1.2 * i;
-        const x = radius * Math.cos(angle) + (Math.random() * 40 - 20);
-        const y = radius * Math.sin(angle) + (Math.random() * 40 - 20);
-        const size = Math.random() * 2.5 + 'px';
-        estrella.style.width = size; estrella.style.height = size;
-        estrella.style.left = x + 'px'; estrella.style.top = y + 'px';
-        const colores = ['#ffffff', '#a855f7', '#3b82f6', '#d8b4fe'];
-        const color = colores[Math.floor(Math.random() * colores.length)];
-        estrella.style.background = color;
-        estrella.style.boxShadow = `0 0 6px ${color}`;
-        galaxiaContenedor.appendChild(estrella);
-    }
+    setTimeout(() => p.remove(), 7000);
 }
 
 function dispararExplosion() {
@@ -69,21 +43,33 @@ function dispararExplosion() {
             e.style.left = cx + Math.cos(ang) * dist + 'px';
             e.style.top = cy + Math.sin(ang) * dist + 'px';
         }, 10);
+        setTimeout(() => e.style.animation = `parpadear ${Math.random() + 1}s infinite`, dur * 1000);
     }
 }
 
 video.onended = function() {
     video.style.opacity = "0";
+    
+    // Texto sube al centro (Mismo comportamiento original)
     setTimeout(() => footer.classList.add('al-centro'), 800);
-    setTimeout(() => { footer.classList.add('supernova'); }, 5000);
+
+    // Destello Supernova
+    setTimeout(() => {
+        footer.classList.add('supernova');
+    }, 5000);
+
+    // Explosión y Sol final
     setTimeout(() => {
         footer.style.display = 'none';
         dispararExplosion();
-        setTimeout(() => { galaxiaContenedor.classList.add('mostrar-galaxia'); }, 500);
+        // Aparece el Sol Minimalista en lugar de la galaxia
+        setTimeout(() => {
+            solContenedor.classList.add('mostrar-sol');
+        }, 500);
     }, 7500);
 };
 
-// Fade out volumen
+// Fade out volumen suave
 video.ontimeupdate = function() {
     const r = video.duration - video.currentTime;
     if (r < 2 && r > 0) { video.volume = r / 2; }
@@ -92,13 +78,12 @@ video.ontimeupdate = function() {
 async function iniciarTodo() {
     pantalla.style.display = 'none';
     contenido.style.display = 'flex';
-    generarGalaxia();
     video.load();
-    video.volume = 1.0;
+    video.volume = 1.0; // Usamos solo el audio del video
     try { await video.play(); } catch (e) { video.play(); }
     
-    // --- GENERAR PÍXELES CONSTANTEMENTE (Lógica Urbana) ---
-    setInterval(crearPixel, 150); // Crea un pixel cada 150ms
+    // --- GENERAR ESTRELLAS CONSTANTEMENTE (Lógica Original) ---
+    setInterval(crearEstrella, 300); // Una estrella cada 300ms
 }
 
 pantalla.addEventListener('click', iniciarTodo);
