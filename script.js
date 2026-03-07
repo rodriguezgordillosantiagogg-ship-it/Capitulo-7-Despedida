@@ -1,7 +1,6 @@
 const pantalla = document.getElementById('pantallaInicio');
 const contenido = document.getElementById('contenidoPrincipal');
 const video = document.getElementById('miVideo');
-const audio = document.getElementById('audioFondo');
 const footer = document.getElementById('footerTexto');
 const galaxiaContenedor = document.getElementById('galaxiaGenerada');
 const mensajeFinal = document.getElementById('mensajeFinal');
@@ -48,27 +47,8 @@ function dispararExplosion() {
 
 video.onended = function() {
     video.style.opacity = "0";
-    
-    // Iniciar desvanecimiento de música (Fade Out)
-    const fadeOutAudio = setInterval(() => {
-        if (audio.volume > 0.05) {
-            audio.volume -= 0.05; // Baja 5% cada 200ms
-        } else {
-            audio.pause();
-            audio.volume = 0;
-            clearInterval(fadeOutAudio);
-        }
-    }, 200);
-
-    // Texto sube
     setTimeout(() => footer.classList.add('al-centro'), 800);
-
-    // Destello Supernova
-    setTimeout(() => {
-        footer.classList.add('supernova');
-    }, 5000);
-
-    // Explosión y Galaxia
+    setTimeout(() => { footer.classList.add('supernova'); }, 5000);
     setTimeout(() => {
         footer.style.display = 'none';
         dispararExplosion();
@@ -79,24 +59,19 @@ video.onended = function() {
     }, 7500);
 };
 
+// Desvanecimiento de volumen progresivo al final del video
+video.ontimeupdate = function() {
+    const r = video.duration - video.currentTime;
+    if (r < 2 && r > 0) { video.volume = r / 2; }
+};
+
 async function iniciarTodo() {
     pantalla.style.display = 'none';
     contenido.style.display = 'flex';
     generarGalaxia();
-    
     video.load();
-    video.muted = true; // Silenciamos video para que no se duplique con el audio
-    
-    try {
-        await video.play();
-        audio.volume = 1.0; 
-        audio.play();
-    } catch (e) { 
-        video.play();
-        audio.play();
-    }
-
-    // Partículas de fondo
+    video.volume = 1.0; // Solo usamos el volumen del video
+    try { await video.play(); } catch (e) { video.play(); }
     setInterval(() => {
         const p = document.createElement('div');
         p.classList.add('petalo');
