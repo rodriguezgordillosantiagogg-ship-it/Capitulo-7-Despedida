@@ -6,72 +6,52 @@ body, html {
     overflow: hidden; font-family: 'Arial Black', sans-serif;
 }
 
-/* Partículas moradas cayendo */
-.petalo { position: absolute; background-color: #a855f7; border-radius: 50%; opacity: 0.5; pointer-events: none; z-index: 5; animation: caer linear infinite; }
-@keyframes caer { 0% { transform: translateY(-10vh); } 100% { transform: translateY(110vh) translateX(50px); } }
+.petalo { position: absolute; background-color: #a855f7; border-radius: 50%; opacity: 0.4; pointer-events: none; animation: caer linear infinite; }
+@keyframes caer { 0% { transform: translateY(-10vh); } 100% { transform: translateY(110vh) translateX(40px); } }
 
-/* Pantalla Inicio */
 .pantalla-inicio { position: fixed; top: 0; left: 0; z-index: 100; background: radial-gradient(circle, #1a0033 0%, #05000a 100%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
-.titulo-entrada { font-size: 3.5rem; letter-spacing: 5px; color: white !important; text-shadow: 0 0 20px #a855f7; margin: 0; }
-.subtitulo-entrada { color: #a855f7 !important; font-size: 1.2rem; letter-spacing: 10px; margin-top: 10px; text-transform: uppercase; }
-.instruccion { display: block; margin-top: 20px; color: white; opacity: 0.6; font-size: 0.7rem; animation: palpitar 2s infinite; }
-@keyframes palpitar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+.titulo-entrada { font-size: 3.5rem; color: white !important; text-shadow: 0 0 20px #a855f7; margin: 0; }
+.subtitulo-entrada { color: #a855f7 !important; font-size: 1.2rem; letter-spacing: 10px; }
 
-/* Video */
 .contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; }
-#miVideo { height: 65vh; width: auto; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 50px rgba(168, 85, 247, 0.4); border: 2px solid rgba(168, 85, 247, 0.3); transition: opacity 3s ease; background: black; }
+#miVideo { height: 60vh; width: auto; max-width: 85vw; border-radius: 12px; box-shadow: 0 0 40px rgba(168, 85, 247, 0.4); transition: opacity 3s ease; }
 
-/* Texto Final y Supernova */
-.footer-texto-doble { text-align: center; margin-top: 25px; transition: transform 4s ease-out; position: relative; z-index: 15; }
-.footer-titulo { color: white !important; font-size: 2rem; margin: 0; text-shadow: 0 0 15px white; }
-.footer-subtitulo { color: #a855f7 !important; font-size: 1rem; letter-spacing: 8px; margin: 0; text-shadow: 0 0 10px #a855f7; }
+.footer-texto-doble { text-align: center; margin-top: 20px; transition: transform 4s ease-out; position: relative; z-index: 15; }
+.al-centro { transform: translateY(-35vh) scale(1.3); }
 
-.al-centro { transform: translateY(-40vh) scale(1.3); }
-
-.supernova { animation: flash 2s forwards ease-in-out; }
+/* Supernova */
+.supernova { animation: flash 2.5s forwards ease-in-out; }
 @keyframes flash {
-    0% { transform: translateY(-40vh) scale(1.3); opacity: 1; filter: blur(0px); }
-    50% { transform: translateY(-40vh) scale(1.8); opacity: 1; filter: blur(2px); text-shadow: 0 0 60px white, 0 0 100px #a855f7; }
-    100% { transform: translateY(-40vh) scale(2.5); opacity: 0; filter: blur(20px); }
+    0% { transform: translateY(-35vh) scale(1.3); opacity: 1; }
+    50% { transform: translateY(-35vh) scale(1.8); opacity: 1; text-shadow: 0 0 80px white, 0 0 150px #a855f7; filter: blur(2px); }
+    100% { transform: translateY(-35vh) scale(3); opacity: 0; filter: blur(20px); }
 }
 
-/* Estrellas Sparkle */
-.estrella-sparkle { position: fixed; width: 15px; height: 15px; z-index: 20; opacity: 0; pointer-events: none; }
-.estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 10px white; border-radius: 50%; }
-.estrella-sparkle::before { width: 100%; height: 2px; top: 50%; left: 0; transform: translateY(-50%); }
-.estrella-sparkle::after { width: 2px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
-
-@keyframes blink { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.2; scale: 0.5; } }
-
-/* --- ESTILOS PARA LA GALAXIA FINAL (IMAGEN) --- */
-#galaxiaFinalContenedor {
+/* Galaxia Dinámica */
+#galaxiaGenerada {
     position: fixed; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    /* Ajustamos tamaño para que cubra la pantalla sin ser excesiva */
-    width: 90vw; 
-    max-width: 800px;
-    height: auto;
+    width: 2px; height: 2px;
     opacity: 0; visibility: hidden;
-    /* Añadimos un resplandor cósmico */
-    filter: drop-shadow(0 0 30px #a855f7) drop-shadow(0 0 60px rgba(138, 43, 226, 0.4)); 
-    transition: opacity 5s ease-in-out;
-    z-index: 5; /* Detrás de las chispas de la explosión */
+    transition: opacity 5s ease;
+    z-index: 5;
+    animation: rotarGalaxia 40s linear infinite;
 }
+.estrella-galaxia { position: absolute; border-radius: 50%; filter: blur(0.5px); }
+#galaxiaGenerada.mostrar-galaxia { opacity: 1; visibility: visible; }
+@keyframes rotarGalaxia { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-#galaxiaImagen {
-    width: 100%;
-    height: auto;
-    border-radius: 50%; /* Opcional, para suavizar bordes */
+/* Texto Final Post-Explosión */
+#mensajeFinal {
+    position: fixed; bottom: 15%;
+    color: white; font-size: 1rem; letter-spacing: 12px;
+    opacity: 0; transition: opacity 4s ease;
+    text-shadow: 0 0 10px #a855f7;
+    z-index: 20; text-transform: uppercase;
 }
+.mostrar-mensaje { opacity: 0.7 !important; }
 
-/* Animación de rotación lenta */
-@keyframes rotarGalaxia {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-#galaxiaFinalContenedor.mostrar-galaxia { 
-    opacity: 1; 
-    visibility: visible; 
-    animation: rotarGalaxia 25s linear infinite; 
-}
+/* Chispas */
+.estrella-sparkle { position: fixed; width: 12px; height: 12px; z-index: 20; opacity: 0; }
+.estrella-sparkle::before, .estrella-sparkle::after { content: ''; position: absolute; background: white; box-shadow: 0 0 8px white; }
+.estrella-sparkle::before { width: 100%; height: 1.5px; top: 50%; left: 0; }
+.estrella-sparkle::after { width: 1.5px; height: 100%; left: 50%; top: 0; }
