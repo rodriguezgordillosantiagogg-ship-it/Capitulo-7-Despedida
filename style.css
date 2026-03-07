@@ -22,7 +22,7 @@ body, html {
 /* --- PANTALLA INICIAL (Aesthetic Celular) --- */
 .pantalla-inicio { 
     position: fixed; top: 0; left: 0; z-index: 100; 
-    background: radial-gradient(circle, #2a002a 0%, #0b0b0b 100%); 
+    background: radial-gradient(circle, #1a1a1a 0%, #0b0b0b 100%); 
     width: 100%; height: 100%; display: flex; justify-content: center; 
     align-items: center; cursor: pointer; 
 }
