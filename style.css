@@ -1,61 +1,66 @@
-/* --- SOL FINAL Y RAYOS --- */
-#solFinal { 
-    position: fixed; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    opacity: 0; 
-    transition: 5s ease; 
-    visibility: hidden; 
-    z-index: 50;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    background-color: #000000 !important; 
+    overflow: hidden; font-family: 'Montserrat', sans-serif;
 }
 
-#solFinal.mostrar-sol { 
-    opacity: 1; 
-    visibility: visible; 
+#pixel-shower-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; pointer-events: none;
 }
 
-.centro-sol { 
-    width: 90px; 
-    height: 90px; 
-    background: #ff00ff; /* --- TOTALMENTE MAGENTA --- */
-    border-radius: 50%; 
-    /* Brillo magenta intenso */
-    box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff00ff, 0 0 120px rgba(255, 0, 255, 0.5); 
-    position: relative;
-    z-index: 10;
+.pixel-caida {
+    position: absolute; background: white; 
+    width: 6px; height: 6px; 
+    border-radius: 50%; opacity: 0.8;
+    box-shadow: 0 0 12px #ff00ff;
+    /* Animación de vaivén tipo hoja */
+    animation: oscilar 3s infinite ease-in-out;
 }
 
-/* Contenedor que hace girar todos los rayos */
-.rayos {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: girarSol 20s linear infinite;
+@keyframes oscilar {
+    0%, 100% { margin-left: 0px; }
+    50% { margin-left: 40px; }
 }
 
-/* El rayo individual */
-.rayo-linea {
-    position: absolute;
-    width: 2px;
-    height: 190px; /* Un poco más largos para destacar */
-    /* Gradiente Magenta -> Magenta más suave -> Transparente */
-    background: linear-gradient(to top, #ff00ff, rgba(255, 0, 255, 0.8), transparent);
-    transform-origin: bottom center;
-    bottom: 50%; 
-    opacity: 0.8; /* Un poco más opacos para que se vean mejor */
-    border-radius: 2px;
-    /* Resplandor magenta en cada rayo */
-    filter: drop-shadow(0 0 5px #ff00ff);
+.pantalla-inicio { 
+    position: fixed; top: 0; left: 0; z-index: 100; 
+    width: 100%; height: 100%; background: black;
+    display: flex; justify-content: center; align-items: center; cursor: pointer; 
+}
+.contenedor-texto { text-align: center; }
+.titulo-entrada { font-weight: 900; font-size: 3.5rem; color: white; margin: 0; }
+.subtitulo-entrada { font-family: 'Teko'; color: #ff00ff !important; font-size: 2rem; letter-spacing: 20px; margin: 0; text-transform: uppercase; }
+.instruccion { color: white; font-family: 'Teko'; letter-spacing: 4px; animation: fadeBlink 2.5s infinite; }
+
+@keyframes fadeBlink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+
+.contenido { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; position: relative; }
+#miVideo { height: 55vh; width: auto; max-width: 90%; border-radius: 5px; z-index: 20; position: relative; transition: opacity 2s; }
+
+.footer-texto-doble { text-align: center; margin-top: 30px; z-index: 20; transition: transform 4s ease-out; }
+.al-centro { transform: translateY(-35vh) scale(1.1); }
+
+#solFinal {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 320px; height: 320px; opacity: 0; visibility: hidden; transition: 3s;
+    z-index: 30;
+}
+#solFinal.mostrar-sol { opacity: 1; visibility: visible; }
+
+.sol-svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 0 25px rgba(255, 0, 255, 0.8));
 }
 
-@keyframes girarSol {
+.grupo-sol {
+    transform-origin: center;
+    animation: rotarSol 30s linear infinite;
+}
+
+@keyframes rotarSol {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
